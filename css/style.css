@@ -1065,11 +1065,16 @@ a {
 .post-nav {
   margin: 20px 0;
   overflow: hidden;
+  display: flex;
+  justify-content: space-between;
 }
 .post-nav .post-nav-prev {
-  float: left;
+  flex: 1;
 }
 .post-nav .post-nav-next {
+  flex: 1;
+}
+.post-nav .post-nav-next span {
   float: right;
 }
 .copyright {
