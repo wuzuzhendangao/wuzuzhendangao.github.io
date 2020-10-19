@@ -511,7 +511,7 @@ books   <span class="token comment" spellcheck="true">#书籍</span></code></pre
 <blockquote>
 <p>我是blockquote</p>
 </blockquote>
-<p>例如，我将该文件下的所有颜色设置为<code>skyblue</code>，显示效果如下<br><img src="http://riyugo.com/i/2020/09/16/ig4oy6.png" alt="theme-color"></p>
+<p>例如，我将该文件下的所有颜色设置为<code>skyblue</code>，显示效果如下<br><img src="https://img13.360buyimg.com/ddimg/jfs/t1/120336/2/13322/273081/5f69b8d1E737e6277/8fdc796d2d3a82b3.png" alt="theme-color"></p>
 <p>代码高亮颜色，可以通过之前介绍的代码高亮进行更改</p>
 <h2 id="文章-Front-matter-介绍"><a href="#文章-Front-matter-介绍" class="headerlink" title="文章 Front-matter 介绍"></a>文章 Front-matter 介绍</h2><p><code>Front-matter</code> 选项中的所有内容均为<strong>非必填</strong>的。但我仍然建议至少填写 <code>title</code> 和 <code>date</code> 的值。</p>
 <table>
@@ -1020,5 +1020,30 @@ books   <span class="token comment" spellcheck="true">#书籍</span></code></pre
           document.body.addEventListener('input', POWERMODE);//监听打字事件
       </script>
     
+
+    <!-- markdown代码一键复制功能 -->
+    
+<script src="/js/clipboard/clipboard.min.js"></script>
+
+    <script>
+      !function (e, t, a) {
+        var copy = '复制';
+        /* code */
+        var initCopyCode = function(){
+          var copyHtml = '';
+          copyHtml += '<button class="btn-copy" data-clipboard-snippet="">';
+          copyHtml += '<i class="fa fa-globe"></i><span>' + copy + '</span>';
+          copyHtml += '</button>';
+          $(".post-detail pre code").before(copyHtml);
+          new ClipboardJS('.btn-copy', {
+              target: function(trigger) {
+                  return trigger.nextElementSibling;
+              }
+          });
+        }
+        initCopyCode();
+      }(window, document);
+    </script>
+  
   </body>
 </html>
