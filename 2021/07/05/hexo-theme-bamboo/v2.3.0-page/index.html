@@ -1,0 +1,1719 @@
+<!DOCTYPE html>
+<html>
+  <!-- meta/link... -->
+  
+
+
+
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+
+
+  <title>Bamboo主题-页面功能配置（二） | Bamboo</title>
+
+  
+
+  <link rel="icon" type="image/x-icon, image/vnd.microsoft.icon" href="/favicon.ico">
+  <link rel="stylesheet" href="https://at.alicdn.com/t/font_1911880_c1nvbyezg17.css">
+  <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet">
+
+  
+    <script>
+        var themeModelId = '';
+        if (themeModelId) {
+            localStorage.setItem('modelId', themeModelId);
+        }
+    </script>
+    
+    <script src="https://cdn.jsdelivr.net/gh/yuang01/live2d-widget@latest/autoload.js"></script>
+    <script>
+        var live2dOpen = eval('true') || false;
+        if (!live2dOpen) {
+            localStorage.setItem('waifu-display', 1609323474481);
+        }
+    </script>
+  
+  
+  
+<link rel="stylesheet" href="/css/animate.min.css">
+
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+  
+    
+<link rel="stylesheet" href="/js/fancybox/jquery.fancybox.min.css">
+
+  
+  
+    
+<link rel="stylesheet" href="/js/shareJs/share.min.css">
+
+  
+  <style>
+        @media (max-width: 992px) {
+            #waifu {
+                display: none;
+            }
+        }
+    </style>
+    <script src="//cdn.bootcss.com/pace/1.0.2/pace.min.js"></script>
+    <link href="//cdn.bootcss.com/pace/1.0.2/themes/pink/pace-theme-flash.css" rel="stylesheet">
+
+    
+        <script src="/js/valine/av-min@3.0.4.js"></script>
+        <script src="https://cdn.jsdelivr.net/gh/HCLonely/Valine@latest/dist/Valine.min.js"></script>
+    
+    
+    
+
+    <!-- import link -->
+    
+        
+            
+        
+            
+        
+    
+    <!-- import script -->
+    
+        
+            
+        
+            
+        
+    
+
+<meta name="generator" content="Hexo 5.4.0"><link rel="alternate" href="/atom.xml" title="Bamboo" type="application/atom+xml">
+</head>
+
+  
+  <!-- 依赖于jquery和vue -->
+  <script src="/js/jquery3.5.1.js"></script>
+  <script src="/js/vue2.6.11.js"></script>
+  
+  <body>
+    <!-- 预加载动画 -->
+    <!-- 页面预加载动画 -->
+
+<div id='loader'>
+  <link rel="stylesheet" href="/js/loaded/index.css" >
+  <div class="loading-left-bg"></div>
+  <div class="loading-right-bg"></div>
+  <div class="spinner-box">
+    <div class="configure-border-1">
+      <div class="configure-core"></div>
+    </div>
+    <div class="configure-border-2">
+      <div class="configure-core"></div>
+    </div>
+    <div class="loading-word">加载中...</div>
+  </div>
+</div>
+
+<script>
+  var endLoading = function () {
+    document.body.style.overflow = 'auto';
+    document.getElementById('loader').classList.add("loading");
+  }
+  window.addEventListener('DOMContentLoaded',endLoading);
+  
+</script>
+
+    
+    <!-- 判断是否为暗黑风格 -->
+    <!-- 判断是否为黑夜模式 -->
+<script>
+  let isDark = JSON.parse(localStorage.getItem('dark')) || JSON.parse('false');
+
+  if (isDark) {
+    $(document.body).addClass('darkModel');
+  }
+</script>
+
+    <!-- 头部导航等 -->
+    
+<header class="header " id="navHeader"
+  style="position: fixed;
+  left: 0; top: 0; z-index: 10;width: 100%;"
+>
+  <div class="header-content">
+    <div class="bars">
+      <div id="appDrawer" class="sidebar-image">
+  <div class="drawer-box-icon">
+    <i class="fa fa-bars" aria-hidden="true" @click="showDialogDrawer"></i>
+  </div>
+  
+  <transition name="fade">
+    <div class="drawer-box_mask" v-cloak style="display: none;" v-show="visible" @click.self="cancelDialogDrawer">
+    </div>
+  </transition>
+  <div class="drawer-box" :class="{'active': visible}">
+    <div class="drawer-box-head bg-color">
+      <img class="drawer-box-head_logo" src="/medias/logo.png" alt="logo">
+      <h3 class="drawer-box-head_title">Bamboo</h3>
+      <h5 class="drawer-box-head_desc">千磨万击还坚劲，任尔东西南北风</h5>
+    </div>
+    
+    <div class="drawer-box-content">
+      <ul class="drawer-box-content_menu">
+        
+        
+          <li class="drawer-box-content_item">
+            <a target="_blank" rel="noopener" href="https://github.com/yuang01/hexo-theme-bamboo">
+              <i class="fa fa-github" aria-hidden="true"></i>
+              <span>Github</span>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</div>
+
+<script>
+  var body = document.body || document.documentElement || window;
+  var vm = new Vue({
+    el: '#appDrawer',
+    data: {
+      visible: false,
+      top: 0,
+      openArr: [],
+    },
+    computed: {
+    },
+    mounted() {
+    },
+    methods: {
+      isOpen(index) {
+        if (this.openArr.includes(index)) {
+          return true;
+        } else {
+          return false;
+        }
+      },
+      openOrCloseMenu(curIndex) {
+        const index = this.openArr.indexOf(curIndex);
+        if (index !== -1) {
+          this.openArr.splice(index, 1);
+        } else {
+          this.openArr.push(curIndex);
+        }
+      },
+      showDialogDrawer() {
+        this.visible = true;
+        // 防止页面滚动，只能让弹框滚动
+        this.top = $(document).scrollTop()
+        body.style.cssText = 'width: 100%; height: 100%;overflow: hidden;';
+      },
+      cancelDialogDrawer() {
+        this.visible = false;
+        body.removeAttribute('style');
+        $(document).scrollTop(this.top)
+      }
+    },
+    created() {}
+  })
+</script>
+
+    </div>
+    <div class="blog-title" id="author-avatar">
+      
+        <div class="avatar">
+          <img src="/medias/logo.png" alt="logo">
+        </div>
+      
+      <a href="/" class="logo">Bamboo</a>
+    </div>
+    <nav class="navbar">
+      <ul class="menu">
+        
+      </ul>
+      
+      
+        <div id="appSearch">
+  <div class="search"  @click="showDialog()"><i class="fa fa-search" aria-hidden="true"></i></div>
+  <transition name="fade">
+    <div class="message-box_wrapper" style="display: none;" v-cloak v-show="dialogVisible" @click.self="cancelDialogVisible()">
+      <div class="message-box animated bounceInDown">
+        <!-- <div class="close" style="overflow: hidden;">
+          <i class="fa fa-close" aria-hidden="true" style="float:right;" @click.self="cancelDialogVisible()"></i>
+        </div> -->
+        <h2>
+          <span>
+            <i class="fa fa-search" aria-hidden="true"></i>
+            <span class="title">本地搜索</span>
+          </span>
+          <i class="fa fa-close close" pointer style="float:right;" aria-hidden="true" @click.self="cancelDialogVisible()"></i>
+        </h2>
+        <form class="site-search-form">
+          <input type="text"
+            placeholder="请输入关键字"
+            id="local-search-input" 
+            @click="getSearchFile()"
+            class="st-search-input"
+            v-model="searchInput"
+          />
+        </form>
+        <div class="result-wrapper">
+          <div id="local-search-result" class="local-search-result-cls"></div>
+        </div>
+      </div>
+    </div>
+  </transition>
+</div>
+<script src="/js/local_search.js"></script>
+<script>
+  var body = document.body || document.documentElement || window;
+  var vm = new Vue({
+    el: '#appSearch',
+    data: {
+      dialogVisible: false,
+      searchInput: '',
+      top: 0,
+    },
+    computed: {
+    },
+    mounted() {
+    },
+    methods: {
+      showDialog() {
+        this.dialogVisible = true;
+        // 防止页面滚动，只能让弹框滚动
+        this.top = $(document).scrollTop()
+        body.style.cssText = 'overflow: hidden;';
+      },
+      getSearchFile() {
+        if (!this.searchInput) {
+          getSearchFile("/search.xml");
+        }
+      },
+      cancelDialogVisible() {
+        this.dialogVisible = false;
+        body.removeAttribute('style');
+        $(document).scrollTop(this.top)
+      },
+    },
+    created() {}
+  })
+</script>
+<!-- 解决刷新页面闪烁问题，可以在元素上添加display: none, 或者用vue.extend方法，详情：https://blog.csdn.net/qq_31393401/article/details/81017912 -->
+<!-- 下面是搜索基本写法 -->
+<!-- <script type="text/javascript" id="local.search.active">
+  var inputArea = document.querySelector("#local-search-input");
+  inputArea.onclick   = function(){ getSearchFile(); this.onclick = null }
+  inputArea.onkeydown = function(){ if(event.keyCode == 13) return false }
+</script> -->
+
+      
+
+    </nav>
+  </div>
+  
+    <a target="_blank" rel="noopener" href="https://github.com/yuang01/hexo-theme-bamboo" class="github-corner color-primary" aria-label="View source on GitHub"><svg width="60" height="60" viewBox="0 0 250 250" style="fill:#fff; position: absolute; top: 0; border: 0; right: 0;" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style>
+  
+  
+
+    <!-- 当头部导航设置为背景透明的时候  -->
+    
+      <script src="/js/header/index.js" data-pjax></script>
+    
+</header>
+
+    <!-- 需要在上面加载的js -->
+    <script>
+    function loadScript(src, cb) {
+        setTimeout(function () {
+            var HEAD = document.getElementsByTagName('head')[0] || document.documentElement;
+            var script = document.createElement('script');
+            script.setAttribute('type', 'text/javascript');
+            if (cb) script.onload = cb;
+            script.setAttribute('src', src);
+            HEAD.appendChild(script);
+        });
+    }
+
+    //https://github.com/filamentgroup/loadCSS
+    var loadCSS = function (href, before, media, attributes) {
+        var doc = window.document;
+        var ss = doc.createElement("link");
+        var ref;
+        if (before) {
+            ref = before;
+        }
+        else {
+            var refs = (doc.body || doc.getElementsByTagName("head")[0]).childNodes;
+            ref = refs[refs.length - 1];
+        }
+        var sheets = doc.styleSheets;
+        if (attributes) {
+            for (var attributeName in attributes) {
+                if (attributes.hasOwnProperty(attributeName)) {
+                    ss.setAttribute(attributeName, attributes[attributeName]);
+                }
+            }
+        }
+        ss.rel = "stylesheet";
+        ss.href = href;
+        ss.media = "only x";
+        function ready(cb) {
+            if (doc.body) {
+                return cb();
+            }
+            setTimeout(function () {
+                ready(cb);
+            });
+        }
+        ready(function () {
+            ref.parentNode.insertBefore(ss, (before ? ref : ref.nextSibling));
+        });
+        var onloadcssdefined = function (cb) {
+            var resolvedHref = ss.href;
+            var i = sheets.length;
+            while (i--) {
+                if (sheets[i].href === resolvedHref) {
+                    return cb();
+                }
+            }
+            setTimeout(function () {
+                onloadcssdefined(cb);
+            });
+        };
+        function loadCB() {
+            if (ss.addEventListener) {
+                ss.removeEventListener("load", loadCB);
+            }
+            ss.media = media || "all";
+        }
+        if (ss.addEventListener) {
+            ss.addEventListener("load", loadCB);
+        }
+        ss.onloadcssdefined = onloadcssdefined;
+        onloadcssdefined(loadCB);
+        return ss;
+    };
+    
+</script>
+ 
+
+<!-- 轮播图所需要的js -->
+<script src="/js/swiper/swiper.min.js"></script>
+<script src="/js/swiper/vue-awesome-swiper.js"></script>
+<script src="/js/swiper/swiper.animate1.0.3.min.js"></script>
+
+
+  <script src="/js/vue-typed-js/index.js"></script>
+
+
+<!-- 首页的公告滚动插件的js需要重新加载 -->
+<script src="/js/vue-seamless-scroll/index.js"></script>
+
+<!-- 打字机效果js -->
+<script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.11"></script>
+
+
+    <!-- 内容区域 -->
+    <div id="safearea">
+      <main class="main" id="pjax-container" style="margin-top: 0;">
+        
+ <!-- prismjs 代码高亮 -->
+ 
+
+
+<div class="bg-dark-floor" style="position: fixed;left: 0;top: 0;width: 100%;height: 100%;z-index: -1;"></div>
+
+<!-- 文章详情页顶部图片和标题 -->
+
+
+
+
+<div class="post-detail-header lazyload" id="thumbnail_canvas" data-original="https://pica.zhimg.com/80/v2-4dc929a46e9fb56c13911592af0be9dc_1440w.jpg?source=1940ef5c" style="background-repeat: no-repeat; background-size: cover; 
+  background-position: center center;position: relative;">
+  <div class="post-detail-header-mask"></div>
+  <canvas id="header_canvas"style="position:absolute;bottom:0;pointer-events:none;"></canvas>
+  
+  <div class="post-detail-header_info-box">
+    <div class="title-box">
+      <span class="title">
+        Bamboo主题-页面功能配置（二）
+      </span>
+    </div>
+    
+    
+      
+        <span class="post-detail-header_date">
+          <i class="fa fa-calendar"></i> 发表于：2021-07-05 |
+        </span>
+      
+
+      
+        <span class="post-detail-header_categories">
+          <i class="iconfont iconbookmark1"></i> 分类：
+          
+            <a href="/categories/qianduan/" class="post-detail-header_category">
+              前端
+            </a>
+          
+        </span>
+      
+
+      
+    
+  </div>
+  
+  
+    <script src="/js/bubble/bubble.js"></script>
+  
+</div>
+
+
+
+<div class="row justify-position">
+  <div class="main-content">
+    <article class="post post-detail">
+      
+      <div class="post-content">
+        <h2 class="bamboo-h " id="页面功能配置">页面功能配置</h2><br/>
+<h3 id="首页轮播图"><a href="#首页轮播图" class="headerlink" title="首页轮播图"></a>首页轮播图</h3><p>首页轮播图在<code>source/_posts/xxx.md</code>也就是文章页面配置，如果你想让某个文章放在首页轮播中，只用设置<code>swiper: true</code>即可，可以通过<code>swiperImg: xxx</code>来配置轮播图片，如下所示</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">---</span></span><br><span class="line"><span class="attr">title:</span> <span class="string">Hello</span> <span class="string">world</span></span><br><span class="line"><span class="attr">date:</span> <span class="number">2019-01-20 </span><span class="number">21</span><span class="string">:11</span></span><br><span class="line"><span class="attr">swiper:</span> <span class="literal">true</span></span><br><span class="line"><span class="attr">swiperImg:</span> <span class="string">&#x27;https://ssyerv1.oss-cn-hangzhou.aliyuncs.com/picture/c080ff4434354e35af9dab0a3ee1b9f7.jpg!sswm&#x27;</span></span><br><span class="line"><span class="attr">swiperDesc:</span> <span class="string">&#x27;我是文章在轮播图中的摘要&#x27;</span></span><br><span class="line"><span class="meta">---</span></span><br><span class="line"><span class="string">我是文章内容</span></span><br></pre></td></tr></table></figure>
+<p><code>swiperImg</code>可以是cdn地址，也可以是本地地址，例如<code>/medias/4.png</code><br>可以通过主题文件夹下的<code>_config.yml</code>文件中的<code>swiper</code>属性对轮播进行调整</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 首页轮播图设置</span></span><br><span class="line"><span class="attr">swiper:</span></span><br><span class="line">  <span class="comment"># 当在.md文件中，设置swiper:true，会将该文章放到轮播中，</span></span><br><span class="line">  <span class="attr">showPrevNext:</span> <span class="literal">true</span> <span class="comment"># 是否显示左右切换按钮</span></span><br><span class="line">  <span class="attr">showIndicators:</span> <span class="literal">true</span>  <span class="comment"># 是否显示指示器</span></span><br><span class="line">  <span class="attr">autoplay:</span> <span class="literal">false</span> <span class="comment"># 是否自动轮播</span></span><br><span class="line">  <span class="attr">loop:</span> <span class="literal">true</span> <span class="comment"># 让轮播看起来是循环的, 例如false的话，到达最后一个轮播图的时候，右按钮不能点击</span></span><br><span class="line">  <span class="attr">delay:</span> <span class="number">5000</span> <span class="comment"># 切换延迟时间</span></span><br><span class="line">  <span class="attr">effect:</span> <span class="string">&#x27;slide&#x27;</span> <span class="comment"># &#x27;fade&#x27;: 淡入淡出效果</span></span><br><span class="line">  <span class="attr">textAnimated:</span> <span class="string">&#x27;fadeInDown&#x27;</span> <span class="comment"># 文字动画，属性使用 animate.css, https://daneden.github.io/animate.css/</span></span><br><span class="line">  <span class="attr">textDuration:</span> <span class="string">&#x27;0.2s&#x27;</span> <span class="comment"># 文字动画持续时间（单位秒）</span></span><br><span class="line">  <span class="attr">textDelay:</span> <span class="string">&#x27;0.1s&#x27;</span> <span class="comment"># 文字动画延迟时间（单位秒）</span></span><br><span class="line">  <span class="attr">readMoreBtn:</span> <span class="literal">true</span> <span class="comment"># 阅读更多按钮是否显示</span></span><br><span class="line">  <span class="attr">readMoreBtnBackgroundColor:</span> <span class="string">&#x27;&#x27;</span> <span class="comment"># 阅读更多按钮背景颜色,空字符串则默认使用主题颜色</span></span><br><span class="line">  <span class="attr">bubble:</span> <span class="literal">true</span> <span class="comment"># 轮播图是否显示气泡,也可以打开底下的花瓣或者雪花特效 sakura（花瓣）: true snow(雪花): true</span></span><br><span class="line">  <span class="comment"># 当没有文章设置swiper: true时候，轮播图会显示以下default默认内容，可自行切换对应内容</span></span><br><span class="line">  <span class="attr">defaultImg:</span> <span class="string">&#x27;https://w.wallhaven.cc/full/eo/wallhaven-eo678l.jpg&#x27;</span> <span class="comment"># 图片，没有则随机选取</span></span><br><span class="line">  <span class="attr">defaultVideo:</span> <span class="string">&#x27;&#x27;</span> <span class="comment"># video，min-width:992px show</span></span><br><span class="line">  <span class="attr">defaultVideoLoadingImg:</span> <span class="string">&#x27;https://img14.360buyimg.com/ddimg/jfs/t1/150557/6/19578/249564/60320406Ed5c42418/0d18299f505e4268.gif&#x27;</span> <span class="comment"># video loading img -- use .gif img, 视频预加载动画，使用gif图片作为loading，为空则视频没有预加载动画</span></span><br><span class="line">  <span class="attr">defaultTile:</span> <span class="string">&#x27;青墨书晚风&#x27;</span> <span class="comment"># 标题</span></span><br><span class="line">  <span class="attr">defaultDesc:</span> [<span class="string">&#x27;煮酒洗净尘嚣，论知交&#x27;</span>, <span class="string">&#x27;万般付之一笑，共偕老&#x27;</span>] <span class="comment">#描 述，例如 [&#x27;煮酒洗净尘嚣，论知交&#x27;, &#x27;万般付之一笑，共偕老&#x27;]</span></span><br><span class="line">  <span class="attr">defaultLeftBtnText:</span> <span class="string">&#x27;阅读文档&#x27;</span> <span class="comment"># 左边按钮文字, 空字符串则不显示</span></span><br><span class="line">  <span class="attr">defaultLeftBtnLink:</span> <span class="string">&#x27;https://yuang01.gitee.io/2021/02/08/hexo-theme-bamboo-new/&#x27;</span> <span class="comment"># 左边按钮链接 </span></span><br><span class="line">  <span class="attr">defaultRightBtnText:</span> <span class="string">&#x27;下载主题&#x27;</span> <span class="comment"># 右边按钮的文字，空字符串则不显示</span></span><br><span class="line">  <span class="attr">defaultRightBtnLink:</span> <span class="string">&#x27;https://gitee.com/yuang01/hexo-theme-bamboo/repository/archive/dev.zip&#x27;</span> <span class="comment"># 右边的按钮的链接</span></span><br><span class="line">  <span class="attr">defaultDescTyped:</span> <span class="literal">true</span> <span class="comment"># defaultDesc文字是否开启打字特效  is typed</span></span><br><span class="line">  <span class="attr">defaultDescTypedSpeed:</span> <span class="number">100</span> <span class="comment"># defaultDesc 打字速度, typed typeSpeed</span></span><br><span class="line">  <span class="attr">defaultDescTypedBackSpeed:</span> <span class="number">50</span> <span class="comment"># defaultDesc 打字返回速度 typed backSpeed</span></span><br><span class="line">  <span class="attr">defaultDescTypedLoop:</span> <span class="literal">true</span> <span class="comment"># defaultDesc文字的打字特效是否循环  typed loop</span></span><br><span class="line">  <span class="comment"># defaultAddToSwiper表示：当有文章设置了swiper: true的时候，将上面的 默认内容 放在轮播图的第一页</span></span><br><span class="line">  <span class="attr">defaultAddToSwiper:</span> <span class="literal">true</span> <span class="comment"># 开启这个，则loop默认为false</span></span><br><span class="line">  <span class="attr">bothSideBlur:</span> <span class="string">&#x27;300000px&#x27;</span> <span class="comment"># 轮播图两边模糊程度，px越大越模糊，针对下面的imgwidthFull、full为false的时候</span></span><br><span class="line">  <span class="comment">## 轮播图样式更改</span></span><br><span class="line">  <span class="comment"># 轮播图的文字和按钮居中显示 (针对 imgwidthFull和 full都是false的时候)</span></span><br><span class="line">  <span class="attr">textCenter:</span> <span class="literal">false</span></span><br><span class="line">  <span class="comment"># 图片宽度为100% (轮播图的文字和按钮只能居中显示)</span></span><br><span class="line">  <span class="attr">imgwidthFull:</span> <span class="literal">false</span></span><br><span class="line">  <span class="comment"># 整个轮播图宽高都是100%  (轮播图的文字和按钮只能居中显示)</span></span><br><span class="line">  <span class="attr">full:</span> <span class="literal">true</span> <span class="comment"># full 优先级大于 imgwidthFull</span></span><br><span class="line">  <span class="comment"># 两边透明，imgwidthFull/full: false的时候，设置该值为true，则两边的模糊效果为透明</span></span><br><span class="line">  <span class="attr">bothSideTransparent:</span> <span class="literal">false</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<ul>
+<li><code>defaultAddToSwiper</code>表示，当有文章设置了<code>swiper:true</code>的时候，将default默认轮播图作为第一张轮播图</li>
+<li>通过<code>textCenter</code>控制轮播图的文字和按钮是否居中显示, <code>imgwidthFull</code>设置轮播图是否宽度为100%，但是高度不为100%，<code>full</code>表示轮播图宽高都是100%</li>
+</ul>
+<p>当这样设置的时候</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">## 轮播图样式更改</span></span><br><span class="line"><span class="comment"># 轮播图的文字和按钮居中显示 (针对 imgwidthFull和 full都是false的时候)</span></span><br><span class="line"><span class="attr">textCenter:</span> <span class="literal">false</span></span><br><span class="line"><span class="comment"># 图片宽度为100% (轮播图的文字和按钮只能居中显示)</span></span><br><span class="line"><span class="attr">imgwidthFull:</span> <span class="literal">false</span></span><br><span class="line"><span class="comment"># 整个轮播图宽高都是100%  (轮播图的文字和按钮只能居中显示)</span></span><br><span class="line"><span class="attr">full:</span> <span class="literal">false</span> <span class="comment"># full 优先级大于 imgwidthFull</span></span><br></pre></td></tr></table></figure>
+<p>轮播图是这样显示的</p>
+<div class="gallery ">
+              <p><img "" class="lazyload placeholder" data-original="/img/base.png" src="https://img10.360buyimg.com/ddimg/jfs/t1/157667/29/9156/134350/603c6445Ebbc9cabe/41219c5d36d45072.gif" alt="图片在中间显示"><br><img "" class="lazyload placeholder" data-original="/img/base2.png" src="https://img10.360buyimg.com/ddimg/jfs/t1/157667/29/9156/134350/603c6445Ebbc9cabe/41219c5d36d45072.gif" alt="图片在中间显示"></p>
+            </div>
+
+<p>当这样设置的时候</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">## 轮播图样式更改</span></span><br><span class="line"><span class="comment"># 轮播图的文字和按钮居中显示 (针对 imgwidthFull和 full都是false的时候)</span></span><br><span class="line"><span class="attr">textCenter:</span> <span class="literal">true</span></span><br><span class="line"><span class="comment"># 图片宽度为100% (轮播图的文字和按钮只能居中显示)</span></span><br><span class="line"><span class="attr">imgwidthFull:</span> <span class="literal">false</span></span><br><span class="line"><span class="comment"># 整个轮播图宽高都是100%  (轮播图的文字和按钮只能居中显示)</span></span><br><span class="line"><span class="attr">full:</span> <span class="literal">false</span> <span class="comment"># full 优先级大于 imgwidthFull</span></span><br></pre></td></tr></table></figure>
+<p>轮播图是这样显示的</p>
+<div class="gallery ">
+              <p><img "" class="lazyload placeholder" data-original="/img/text-center.png" src="https://img10.360buyimg.com/ddimg/jfs/t1/157667/29/9156/134350/603c6445Ebbc9cabe/41219c5d36d45072.gif" alt="图片、文字和按钮在中间显示"><br><img "" class="lazyload placeholder" data-original="/img/text-center2.png" src="https://img10.360buyimg.com/ddimg/jfs/t1/157667/29/9156/134350/603c6445Ebbc9cabe/41219c5d36d45072.gif" alt="图片、文字和按钮在中间显示"></p>
+            </div>
+
+<p>当这样设置的时候</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">## 轮播图样式更改</span></span><br><span class="line"><span class="comment"># 轮播图的文字和按钮居中显示 (针对 imgwidthFull和 full都是false的时候)</span></span><br><span class="line"><span class="attr">textCenter:</span> <span class="literal">false</span></span><br><span class="line"><span class="comment"># 图片宽度为100% (轮播图的文字和按钮只能居中显示)</span></span><br><span class="line"><span class="attr">imgwidthFull:</span> <span class="literal">true</span></span><br><span class="line"><span class="comment"># 整个轮播图宽高都是100%  (轮播图的文字和按钮只能居中显示)</span></span><br><span class="line"><span class="attr">full:</span> <span class="literal">false</span> <span class="comment"># full 优先级大于 imgwidthFull</span></span><br></pre></td></tr></table></figure>
+<p>轮播图是这样显示的</p>
+<div class="gallery ">
+              <p><img "" class="lazyload placeholder" data-original="/img/width-full.png" src="https://img10.360buyimg.com/ddimg/jfs/t1/157667/29/9156/134350/603c6445Ebbc9cabe/41219c5d36d45072.gif" alt="图片宽度为100%"><br><img "" class="lazyload placeholder" data-original="/img/width-full2.png" src="https://img10.360buyimg.com/ddimg/jfs/t1/157667/29/9156/134350/603c6445Ebbc9cabe/41219c5d36d45072.gif" alt="图片宽度为100%"></p>
+            </div>
+
+<p>当这样设置的时候</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">## 轮播图样式更改</span></span><br><span class="line"><span class="comment"># 轮播图的文字和按钮居中显示 (针对 imgwidthFull和 full都是false的时候)</span></span><br><span class="line"><span class="attr">textCenter:</span> <span class="literal">false</span></span><br><span class="line"><span class="comment"># 图片宽度为100% (轮播图的文字和按钮只能居中显示)</span></span><br><span class="line"><span class="attr">imgwidthFull:</span> <span class="literal">false</span></span><br><span class="line"><span class="comment"># 整个轮播图宽高都是100%  (轮播图的文字和按钮只能居中显示)</span></span><br><span class="line"><span class="attr">full:</span> <span class="literal">true</span> <span class="comment"># full 优先级大于 imgwidthFull</span></span><br></pre></td></tr></table></figure>
+<p>轮播图是这样显示的</p>
+<div class="gallery ">
+              <p><img "" class="lazyload placeholder" data-original="/img/full.png" src="https://img10.360buyimg.com/ddimg/jfs/t1/157667/29/9156/134350/603c6445Ebbc9cabe/41219c5d36d45072.gif" alt="图片宽高为100%"><br><img "" class="lazyload placeholder" data-original="/img/full2.png" src="https://img10.360buyimg.com/ddimg/jfs/t1/157667/29/9156/134350/603c6445Ebbc9cabe/41219c5d36d45072.gif" alt="图片宽高为100%"></p>
+            </div>
+
+<blockquote>
+<p>还可以通过设置<code>defaultVideo</code>参数将默认轮播图的背景设置为视频，视频在屏幕大于992px的时候显示，小于992px则显示图片。效果如下所示:</p>
+</blockquote>
+<div class="video"><video controls preload><source src='/video/bamboo.mp4' type='video/mp4'>Your browser does not support the video tag.</video></div>
+<blockquote>
+<p>那免费的视频从哪里找呢，我推荐下面两个免费视频网站，直接右键复制网站视频链接就行了，不用下载下来</p>
+</blockquote>
+<div class="link-group"><div class="tagLink"><a class="link-card" title="mixkit" target="_blank" rel="noopener" href="https://mixkit.co/"><span class="link-card-backdrop" style="background-image: url(https://cdn.pixabay.com/photo/2018/12/05/13/41/panda-3857754__340.jpg)"></span><div class="left"><img "" class="lazyload placeholder" data-original="https://cdn.pixabay.com/photo/2018/12/05/13/41/panda-3857754__340.jpg" src="https://img10.360buyimg.com/ddimg/jfs/t1/157667/29/9156/134350/603c6445Ebbc9cabe/41219c5d36d45072.gif"/></div><div class="right"><p class="text">mixkit</p><p class="url">https://mixkit.co/</p></div></a></div>
+
+<div class="tagLink"><a class="link-card" title="coverr" target="_blank" rel="noopener" href="https://coverr.co/"><span class="link-card-backdrop" style="background-image: url(https://cdn.pixabay.com/photo/2018/12/05/13/41/panda-3857754__340.jpg)"></span><div class="left"><img "" class="lazyload placeholder" data-original="https://cdn.pixabay.com/photo/2018/12/05/13/41/panda-3857754__340.jpg" src="https://img10.360buyimg.com/ddimg/jfs/t1/157667/29/9156/134350/603c6445Ebbc9cabe/41219c5d36d45072.gif"/></div><div class="right"><p class="text">coverr</p><p class="url">https://coverr.co/</p></div></a></div>
+</div>
+
+<p>上面的都是头部导航透明的，如果你不想导航透明，则可以设置底下的<code>color_scheme.common.headerMenuTransparent</code>为<code>false</code>，这样看上去和以前的版本就是一样的效果了<br><img "" class="lazyload placeholder" data-original="https://img10.360buyimg.com/ddimg/jfs/t1/195127/39/6433/1605024/60b98cc8E066b88d4/25ef8fce6fa2966f.png" src="https://img10.360buyimg.com/ddimg/jfs/t1/157667/29/9156/134350/603c6445Ebbc9cabe/41219c5d36d45072.gif" alt="头部导航不透明"></p>
+<h3 id="首页座右铭"><a href="#首页座右铭" class="headerlink" title="首页座右铭"></a>首页座右铭</h3><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">motto:</span></span><br><span class="line">  <span class="attr">on:</span> <span class="literal">true</span></span><br><span class="line">  <span class="attr">title:</span> <span class="string">&#x27;座右铭&#x27;</span></span><br><span class="line">  <span class="attr">content:</span> <span class="string">&#x27;沉淀后我愿意做个温暖的人，有自己的喜好，有自己的原则，有自己的信仰，不急功近利，不浮夸轻薄。宠辱不惊，淡定安逸，心静如水，不忘初心，方得始终。——凌茜&#x27;</span></span><br><span class="line">  <span class="attr">background:</span> <span class="string">&#x27;url(&quot;https://img10.360buyimg.com/ddimg/jfs/t1/166587/8/21344/72069/6088c24fEda5fdeb6/f9730ab637b7ca47.png&quot;)&#x27;</span> <span class="comment"># url(&quot;xxx&quot;) or red or #000 or rgba() ..</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="首页公告"><a href="#首页公告" class="headerlink" title="首页公告"></a>首页公告</h3><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">notice:</span></span><br><span class="line">  <span class="attr">on:</span> <span class="literal">true</span></span><br><span class="line">  <span class="attr">seamless:</span> <span class="literal">false</span> <span class="comment"># 为true时，则无缝不停止滚动，false是会停一下的滚动</span></span><br><span class="line">  <span class="attr">title:</span> <span class="string">&#x27;公告&#x27;</span></span><br><span class="line">  <span class="attr">background:</span> <span class="string">&#x27;url(&quot;https://img10.360buyimg.com/ddimg/jfs/t1/166587/8/21344/72069/6088c24fEda5fdeb6/f9730ab637b7ca47.png&quot;)&#x27;</span> <span class="comment"># url(&quot;xxx&quot;) or red or #000 or rgba() ..</span></span><br><span class="line">  <span class="attr">list:</span> <span class="comment"># list相当于数组对象，[&#123;title:&#x27;xx&#x27;,date: &#x27;xx&#x27;, url: &#x27;xxx&#x27;, color: &#x27;red&#x27;&#125;]根据自己实际情况，增加或者删除</span></span><br><span class="line">    <span class="bullet">-</span> <span class="attr">title:</span> <span class="string">&#x27;#博客更新到2.0了&#x27;</span></span><br><span class="line">      <span class="attr">date:</span> <span class="string">&#x27;2021-04-28&#x27;</span></span><br><span class="line">      <span class="attr">url:</span> <span class="string">&#x27;http://baidu.com&#x27;</span>   <span class="comment"># 可以为空, 也可以是本地页面地址如 &#x27;/archives&#x27;</span></span><br><span class="line">      <span class="attr">color:</span> <span class="string">red</span>   <span class="comment"># 字体颜色</span></span><br><span class="line">    <span class="bullet">-</span> <span class="attr">title:</span> <span class="string">&#x27;#新增 轮播图支持三种模式了，功能也增强了 ~&#x27;</span></span><br><span class="line">      <span class="attr">date:</span> <span class="string">&#x27;2021-04-28&#x27;</span></span><br><span class="line">      <span class="attr">url:</span> <span class="string">&#x27;http://baidu.com&#x27;</span></span><br><span class="line">      <span class="attr">color:</span> <span class="string">red</span></span><br><span class="line">    <span class="bullet">-</span> <span class="attr">title:</span> <span class="string">&#x27;#新增 支持二级导航&#x27;</span></span><br><span class="line">      <span class="attr">date:</span> <span class="string">&#x27;2021-04-28&#x27;</span></span><br><span class="line">      <span class="attr">url:</span> <span class="string">&#x27;http://baidu.com&#x27;</span></span><br><span class="line">      <span class="attr">color:</span> <span class="string">blue</span></span><br><span class="line">    <span class="bullet">-</span> <span class="attr">title:</span> <span class="string">&#x27;#新增 归档，分类等页面头部图片位置可以设置为视频 ~&#x27;</span></span><br><span class="line">      <span class="attr">date:</span> <span class="string">&#x27;2021-04-28&#x27;</span></span><br><span class="line">      <span class="attr">url:</span> <span class="string">&#x27;http://baidu.com&#x27;</span></span><br><span class="line">      <span class="attr">color:</span> <span class="string">&#x27;#42b983&#x27;</span></span><br><span class="line">    <span class="bullet">-</span> <span class="attr">title:</span> <span class="string">&#x27;#新增 头部导航可以设置为在顶部透明，并且可以任意设置背景颜色了 ~&#x27;</span></span><br><span class="line">      <span class="attr">date:</span> <span class="string">&#x27;2021-04-28&#x27;</span></span><br><span class="line">      <span class="attr">url:</span> <span class="string">&#x27;http://baidu.com&#x27;</span></span><br><span class="line">    <span class="bullet">-</span> <span class="attr">title:</span> <span class="string">&#x27;#新增 首页增加了座右铭和公告栏目 ~&#x27;</span></span><br><span class="line">      <span class="attr">date:</span> <span class="string">&#x27;2021-04-28&#x27;</span></span><br><span class="line">      <span class="attr">url:</span> <span class="string">&#x27;http://baidu.com&#x27;</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="Github"><a href="#Github" class="headerlink" title="Github"></a>Github</h3><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># github地址, 头部导航右上角的github链接</span></span><br><span class="line"><span class="attr">Github:</span> </span><br><span class="line">  <span class="attr">on:</span> <span class="literal">true</span></span><br><span class="line">  <span class="attr">url:</span> <span class="string">https://github.com/yuang01/hexo-theme-bamboo</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="图库"><a href="#图库" class="headerlink" title="图库"></a>图库</h3><p>新建页面</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">hexo</span> <span class="string">new</span> <span class="string">page</span> <span class="string">gallery</span></span><br></pre></td></tr></table></figure>
+<p>然后在<code>gallery/index.md</code>中使用<code>galleryGroup</code>标签即可</p>
+<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">---</span><br><span class="line">title: 图库</span><br><span class="line">date: 2021-05-10 15:39:04</span><br><span class="line">toc: false</span><br><span class="line">img: https://pic2.zhimg.com/80/v2-2cf3b62a87045ee279096449cf6f3ac1<span class="emphasis">_1440w.jpg?source=1940ef5c</span></span><br><span class="line"><span class="emphasis">onlyTitle: true</span></span><br><span class="line"><span class="emphasis">---</span></span><br><span class="line"><span class="emphasis"><span class="xml"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;gallery-group-main&quot;</span>&gt;</span></span></span></span><br><span class="line"><span class="emphasis">    &#123;% galleryGroup &#x27;壁纸&#x27; &#x27;收藏的一些壁纸&#x27; &#x27;/gallery/bizhi&#x27; https://pic1.zhimg.com/80/v2-23c3820e8abfb1cef689531af2dc6d09_</span>1440w.jpg?source=1940ef5c %&#125;</span><br><span class="line"><span class="code">    &#123;% galleryGroup &#x27;古典图片&#x27; &#x27;中国古典图片&#x27; &#x27;/gallery/gudian&#x27; https://pic1.zhimg.com/80/v2-8d542d68cbbf0e5f503da9e3f72b8447_1440w.jpg?source=1940ef5c %&#125;</span></span><br><span class="line"><span class="code">    &#123;% galleryGroup &#x27;风景&#x27; &#x27;风景图片&#x27; &#x27;/gallery/fengjing&#x27; https://pic1.zhimg.com/80/v2-56164ef0695767475935c9e019c594ae_1440w.jpg?source=1940ef5c %&#125;</span></span><br><span class="line"><span class="code">&lt;/div&gt;</span></span><br></pre></td></tr></table></figure>
+<p>相册详情页,也是创建一个页面</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">hexo</span> <span class="string">new</span> <span class="string">page</span> <span class="string">xxxx</span></span><br></pre></td></tr></table></figure>
+<p>然后，使用<code>gallery</code>标签</p>
+<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">---</span><br><span class="line">title: 壁纸</span><br><span class="line">date: 2021-05-10 15:39:04</span><br><span class="line">toc: false</span><br><span class="line">img: https://pic1.zhimg.com/80/v2-92cc20bdf4674b6c6337478bb06657b3<span class="emphasis">_1440w.jpg?source=1940ef5c</span></span><br><span class="line"><span class="emphasis">toc: false</span></span><br><span class="line"><span class="emphasis">---</span></span><br><span class="line"><span class="emphasis">&#123;% gallery %&#125;</span></span><br><span class="line"><span class="emphasis">![<span class="string">图片描述</span>](<span class="link">https://pic4.zhimg.com/80/v2-5dfab6525ec92b4caf3f09e1ee72a23b_1440w.jpg?source=1940ef5c</span>)</span></span><br><span class="line"><span class="emphasis">![<span class="string">图片描述</span>](<span class="link">https://pic4.zhimg.com/80/v2-5c062983ace7db9601880019190fb5a8_1440w.jpg?source=1940ef5c</span>)</span></span><br><span class="line"><span class="emphasis">&#123;% endgallery %&#125;</span></span><br><span class="line"><span class="emphasis">&#123;% gallery %&#125;</span></span><br><span class="line"><span class="emphasis">![<span class="string">图片描述</span>](<span class="link">https://pic1.zhimg.com/80/v2-154228684029ae0c2183f65a9568c310_1440w.jpg?source=1940ef5c</span>)</span></span><br><span class="line"><span class="emphasis">![<span class="string">图片描述</span>](<span class="link">https://pic4.zhimg.com/80/v2-121618e14ad58dcedf8637127087ff27_1440w.jpg?source=1940ef5c</span>)</span></span><br><span class="line"><span class="emphasis">![<span class="string">图片描述</span>](<span class="link">https://pic2.zhimg.com/80/v2-d61b1af36a619fec1b32775d75f4900d_1440w.jpg?source=1940ef5c</span>)</span></span><br><span class="line"><span class="emphasis">![<span class="string">图片描述</span>](<span class="link">https://pic3.zhimg.com/80/v2-f94047ce45907e0966a681089835c04d_1440w.jpg?source=1940ef5c</span>)</span></span><br><span class="line"><span class="emphasis">&#123;% endgallery %&#125;</span></span><br><span class="line"><span class="emphasis">&#123;% gallery %&#125;</span></span><br><span class="line"><span class="emphasis">![<span class="string">图片描述</span>](<span class="link">https://pic4.zhimg.com/80/v2-604a15cef201cf177943af2d915eb2e7_1440w.jpg?source=1940ef5c</span>)</span></span><br><span class="line"><span class="emphasis">![<span class="string">图片描述</span>](<span class="link">https://pic1.zhimg.com/80/v2-bf6c555e7c61a57ba4a1fd95a9a32975_1440w.jpg?source=1940ef5c</span>)</span></span><br><span class="line"><span class="emphasis">&#123;% endgallery %&#125;</span></span><br></pre></td></tr></table></figure>
+<h3 id="网站favicon和logo"><a href="#网站favicon和logo" class="headerlink" title="网站favicon和logo"></a>网站favicon和logo</h3><p>设置主题文件夹下的<code>_config.yml</code>文件中的<code>favicon</code>和<code>logo</code>属性即可</p>
+<h3 id="页面刷新时预加载动画"><a href="#页面刷新时预加载动画" class="headerlink" title="页面刷新时预加载动画"></a>页面刷新时预加载动画</h3><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">preloader:</span></span><br><span class="line">  <span class="attr">on:</span> <span class="literal">false</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="回到顶部"><a href="#回到顶部" class="headerlink" title="回到顶部"></a>回到顶部</h3><p>设置主题文件夹下的<code>_config.yml</code>文件中的<code>goTop</code>属性即可控制隐藏显示</p>
+<h3 id="文章详情页图片放大功能"><a href="#文章详情页图片放大功能" class="headerlink" title="文章详情页图片放大功能"></a>文章详情页图片放大功能</h3><p>设置主题文件夹下的<code>_config.yml</code>文件中的<code>fancybox</code>属性即可</p>
+<h3 id="修改页脚"><a href="#修改页脚" class="headerlink" title="修改页脚"></a>修改页脚</h3><p>页脚底部的网站统计功能，使用的是<a target="_blank" rel="noopener" href="http://busuanzi.ibruce.info/">不蒜子</a>，设置主题文件夹下的<code>_config.yml</code>文件中的<code>busuanzi</code>属性即可控制隐藏显示</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 设置网站页脚</span></span><br><span class="line"><span class="attr">site_footer:</span></span><br><span class="line">  <span class="attr">social:</span></span><br><span class="line">    <span class="bullet">-</span> <span class="attr">icon:</span> <span class="string">fa</span> <span class="string">fa-rss</span></span><br><span class="line">      <span class="attr">url:</span> <span class="string">/atom.xml</span></span><br><span class="line">    <span class="bullet">-</span> <span class="attr">icon:</span> <span class="string">fa</span> <span class="string">fa-envelope</span></span><br><span class="line">      <span class="attr">url:</span> <span class="string">mailto:1730241541@qq.com</span></span><br><span class="line">    <span class="bullet">-</span> <span class="attr">icon:</span> <span class="string">fa</span> <span class="string">fa-github</span></span><br><span class="line">      <span class="attr">url:</span> <span class="string">https://github.com/yuang01/hexo-theme-bamboo</span></span><br><span class="line">    <span class="bullet">-</span> <span class="attr">icon:</span> <span class="string">fa</span> <span class="string">fa-qq</span></span><br><span class="line">      <span class="attr">url:</span> <span class="string">tencent://AddContact/?fromId=50&amp;fromSubId=1&amp;subcmd=all&amp;uin=1730241541</span></span><br><span class="line">  <span class="attr">copyright:</span> <span class="string">&#x27;Copyright © 2019 - 2020 &lt;a href=&quot;https://github.com/yuang01&quot;&gt;yuang01&lt;/a&gt; | Powered by &lt;a href=&quot;https://hexo.io/zh-cn/docs/&quot;&gt;Hexo&lt;/a&gt; | Theme &lt;a href=&quot;https://github.com/yuang01/theme&quot;&gt;Bamboo&lt;/a&gt; &#x27;</span></span><br><span class="line">  <span class="attr">custom:</span> <span class="comment"># 根据需要自行取消注释，label: &#x27;markdown格式&#x27;，会在下面继续增加内容</span></span><br><span class="line">    <span class="comment"># - label: &#x27;&lt;br&gt;&#x27;</span></span><br><span class="line">    <span class="comment"># - label: &#x27;[Hello World](http://baidu.com)&#x27;</span></span><br></pre></td></tr></table></figure>
+<p>or</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">site_footer:</span></span><br><span class="line">  <span class="attr">social:</span></span><br><span class="line">    <span class="bullet">-</span> <span class="attr">img:</span> <span class="string">https://seikim.com/i/2021/06/15/h4fynr.svg</span></span><br><span class="line">      <span class="attr">url:</span> <span class="string">fa</span> <span class="string">fa-github</span></span><br></pre></td></tr></table></figure>
+
+<p>or </p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">site_footer:</span></span><br><span class="line">  <span class="attr">social:</span></span><br><span class="line">    <span class="bullet">-</span> <span class="attr">avatar:</span> <span class="string">https://seikim.com/i/2021/06/15/h4fynr.svg</span></span><br><span class="line">      <span class="attr">url:</span> <span class="string">fa</span> <span class="string">fa-github</span></span><br></pre></td></tr></table></figure>
+<p>本主题使用<a target="_blank" rel="noopener" href="http://www.fontawesome.com.cn/faicons/">Font Awesome图标</a></p>
+<blockquote>
+<p><strong>注意</strong>: 本主题中使用的 <code>Font Awesome</code> 版本为 <code>4.7.0</code>。</p>
+</blockquote>
+<h3 id="修改打赏的二维码图片"><a href="#修改打赏的二维码图片" class="headerlink" title="修改打赏的二维码图片"></a>修改打赏的二维码图片</h3><p>设置主题文件夹下的<code>_config.yml</code>文件中的<code>donate</code>属性为true，然后更改<code>Alipay</code>和<code>WeChatpay</code>图片路径即可</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 打赏功能</span></span><br><span class="line"><span class="attr">donate:</span></span><br><span class="line">  <span class="attr">on:</span> <span class="literal">true</span></span><br><span class="line"><span class="attr">donate_message:</span> <span class="string">你的赏识是我前进的动力</span></span><br><span class="line"><span class="comment"># 支付宝打赏图片相对路径</span></span><br><span class="line"><span class="attr">Alipay:</span> <span class="string">&#x27;/medias/zfb.jpg&#x27;</span></span><br><span class="line"><span class="comment"># 微信打赏图片相对路径</span></span><br><span class="line"><span class="attr">WeChatpay:</span> <span class="string">&#x27;/medias/wx.jpg&#x27;</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="文章详情页分享功能"><a href="#文章详情页分享功能" class="headerlink" title="文章详情页分享功能"></a>文章详情页分享功能</h3><p>设置主题文件夹下的<code>_config.yml</code>文件中的<code>sharejs</code>属性true或者false即可，通过sites配置需要分享的网站</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 分享功能</span></span><br><span class="line"><span class="attr">sharejs:</span> </span><br><span class="line">  <span class="attr">on:</span> <span class="literal">true</span></span><br><span class="line">  <span class="attr">sites:</span> <span class="string">twitter,facebook,google,qq,qzone,wechat,weibo,douban,linkedin</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="鼠标点击出现爱心，爆炸等效果"><a href="#鼠标点击出现爱心，爆炸等效果" class="headerlink" title="鼠标点击出现爱心，爆炸等效果"></a>鼠标点击出现爱心，爆炸等效果</h3><p>设置主题文件夹下的<code>_config.yml</code>文件中的<code>cursor_effect</code>属性true或者false，通过<code>type</code>属性选择效果类别，例如:</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 鼠标点击特效</span></span><br><span class="line"><span class="attr">cursor_effect:</span></span><br><span class="line">  <span class="attr">on:</span> <span class="literal">true</span></span><br><span class="line">  <span class="attr">type:</span> <span class="string">explosion</span>  <span class="comment"># fireworks: 礼花 | explosion: 爆炸 | love: 浮出爱心 | text: 浮出文字</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="复制成功提醒"><a href="#复制成功提醒" class="headerlink" title="复制成功提醒"></a>复制成功提醒</h3><p>当复制内容时候，是否显示复制成功提示<br>设置主题文件夹下的<code>_config.yml</code>文件中的<code>copy</code>属性true或者false即可</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 复制成功提示</span></span><br><span class="line"><span class="attr">copy:</span></span><br><span class="line">  <span class="attr">on:</span> <span class="literal">true</span></span><br><span class="line">  <span class="attr">title:</span> <span class="string">&#x27;成功&#x27;</span></span><br><span class="line">  <span class="attr">content:</span> <span class="string">&#x27;复制成功了哦&#x27;</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="雪花飘落和花瓣飘落特效"><a href="#雪花飘落和花瓣飘落特效" class="headerlink" title="雪花飘落和花瓣飘落特效"></a>雪花飘落和花瓣飘落特效</h3><p>设置主题文件夹下的<code>_config.yml</code>文件中的<code>snow</code>或者<code>sakura</code>属性true或者false即可</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 首页雪花飘落效果--冬天</span></span><br><span class="line"><span class="attr">snow:</span></span><br><span class="line">  <span class="attr">on:</span> <span class="literal">false</span></span><br><span class="line">  <span class="attr">onlyPc:</span> <span class="literal">false</span> <span class="comment"># 设为true，只有pc端显示雪花特效</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 首页花瓣飘落效果--春天</span></span><br><span class="line"><span class="attr">sakura:</span></span><br><span class="line">  <span class="attr">on:</span> <span class="literal">false</span></span><br><span class="line">  <span class="attr">onlyPc:</span> <span class="literal">false</span> <span class="comment"># 设为true，只有pc端显示花瓣特效</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="输入框打字特效"><a href="#输入框打字特效" class="headerlink" title="输入框打字特效"></a>输入框打字特效</h3><p>搜索弹框中的输入框打字特效，设置主题文件夹下的<code>_config.yml</code>文件中的<code>inputEffects</code>属性为true或者false即可。</p>
+<h3 id="live-2d人物"><a href="#live-2d人物" class="headerlink" title="live-2d人物"></a>live-2d人物</h3><p>设置主题文件夹下的<code>_config.yml</code>文件中的<code>live2d</code>属性为true或者false，可以通过<code>modelId</code>属性选择模型，注意，live-2d人物只有在屏幕宽度最小为992px的时候才显示</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># live-2d(左下角动画人物)</span></span><br><span class="line"><span class="attr">live2d:</span></span><br><span class="line">  <span class="attr">on:</span> <span class="literal">true</span> <span class="comment"># 控制显示或者隐藏</span></span><br><span class="line">  <span class="attr">modelId:</span>  <span class="comment"># 0 or 1 or 2 or 3 or 4 or 5 or 6 #人物模型</span></span><br><span class="line">  <span class="attr">open:</span> <span class="literal">true</span> <span class="comment"># 默认展开，false则收缩，通过点左下角的方块点击，控制展开或者收缩</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="滚动动画"><a href="#滚动动画" class="headerlink" title="滚动动画"></a>滚动动画</h3><p>设置主题文件夹下的<code>_config.yml</code>文件中的<code>aos</code>属性对首页中的文章列表动画进行控制，具体参考官网<a target="_blank" rel="noopener" href="https://github.com/michalsnik/aos#animations">aos.js</a></p>
+<h3 id="文章详情页目录"><a href="#文章详情页目录" class="headerlink" title="文章详情页目录"></a>文章详情页目录</h3><p>设置主题文件夹下的<code>_config.yml</code>文件中的<code>toc</code>的<code>on</code>属性，控制所有文章是否显示，还可以在在单个文章md页面里通过<code>toc</code>属性控制该文章的目录是否显示。<br><code>toc</code>下的<code>open</code>参数控制所有的文章默认是否展开或者收缩，还可以在单个文章md页面里通过<code>tocOpen</code>参数控制该文章(具体某个文章)的目录默认是否展开收缩,参数如下:</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 主题文件夹下的`_config.yml`文件中的`toc`属性</span></span><br><span class="line"><span class="comment"># 文章目录</span></span><br><span class="line"><span class="attr">toc:</span></span><br><span class="line">  <span class="attr">on:</span> <span class="literal">true</span> <span class="comment"># 是否显示</span></span><br><span class="line">  <span class="attr">heading:</span> <span class="string">h2,</span> <span class="string">h3,</span> <span class="string">h4</span></span><br><span class="line">  <span class="attr">open:</span> <span class="literal">true</span> <span class="comment"># 是否展开，false则收缩</span></span><br><span class="line">  <span class="attr">showBtn:</span> <span class="literal">true</span> <span class="comment"># 是否显示展开收缩按钮</span></span><br><span class="line">  <span class="attr">showOrderNumber:</span> <span class="literal">true</span> <span class="comment"># 是否显示序号</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 单个文章里控制显示和隐藏，展开和收缩</span></span><br><span class="line"><span class="meta">---</span></span><br><span class="line"><span class="attr">title:</span> <span class="string">我是文章标题</span></span><br><span class="line"><span class="attr">tags:</span> [<span class="string">&#x27;vue&#x27;</span>, <span class="string">&#x27;html&#x27;</span>]</span><br><span class="line"><span class="attr">categories:</span> [<span class="string">&#x27;前端&#x27;</span>, <span class="string">&#x27;运维&#x27;</span>, <span class="string">&#x27;攻城狮&#x27;</span>]</span><br><span class="line"><span class="attr">toc:</span> <span class="literal">false</span> <span class="comment"># 该文章目录不显示</span></span><br><span class="line"><span class="attr">tocOpen:</span> <span class="literal">false</span> <span class="comment"># 该文章目录收缩</span></span><br><span class="line"><span class="meta">---</span></span><br><span class="line"><span class="string">我是文章内容</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="音乐"><a href="#音乐" class="headerlink" title="音乐"></a>音乐</h3><p>设置主题文件夹下的<code>_config.yml</code>文件中的<code>music</code>属性，控制其显示隐藏和其他一些调整, <code>music</code>中的<code>fixed</code>属性建议使用<code>true</code></p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 音乐</span></span><br><span class="line"><span class="attr">music:</span></span><br><span class="line">  <span class="attr">on:</span> <span class="literal">true</span></span><br><span class="line">  <span class="attr">autoHide:</span> <span class="literal">true</span>    <span class="comment"># hide automaticaly</span></span><br><span class="line">  <span class="attr">server:</span> <span class="string">tencent</span>   <span class="comment">#require	music platform: netease, tencent, kugou, xiami, baidu</span></span><br><span class="line">  <span class="attr">type:</span> <span class="string">playlist</span>    <span class="comment">#require song, playlist, album, search, artist</span></span><br><span class="line">  <span class="attr">id:</span> <span class="number">8062553743</span>     <span class="comment">#require	song id / playlist id / album id / search keyword</span></span><br><span class="line">  <span class="attr">fixed:</span> <span class="literal">true</span>       <span class="comment"># 开启吸底模式，建议开启</span></span><br><span class="line">  <span class="attr">autoplay:</span> <span class="literal">true</span>   <span class="comment"># 是否自动播放</span></span><br><span class="line">  <span class="attr">theme:</span> <span class="string">&#x27;#42b983&#x27;</span></span><br><span class="line">  <span class="attr">loop:</span> <span class="string">&#x27;all&#x27;</span>       <span class="comment"># 音频循环播放, 可选值: &#x27;all&#x27;, &#x27;one&#x27;, &#x27;none&#x27;</span></span><br><span class="line">  <span class="attr">order:</span> <span class="string">&#x27;random&#x27;</span>   <span class="comment"># 音频循环顺序, 可选值: &#x27;list&#x27;, &#x27;random&#x27;</span></span><br><span class="line">  <span class="attr">preload:</span> <span class="string">&#x27;auto&#x27;</span>   <span class="comment"># 预加载，可选值: &#x27;none&#x27;, &#x27;metadata&#x27;, &#x27;auto&#x27;</span></span><br><span class="line">  <span class="attr">volume:</span> <span class="number">0.7</span>       <span class="comment"># 默认音量，请注意播放器会记忆用户设置，用户手动设置音量后默认音量即失效</span></span><br><span class="line">  <span class="attr">listFolded:</span> <span class="literal">true</span>  <span class="comment"># 列表默认折叠</span></span><br><span class="line">  <span class="attr">hideLrc:</span> <span class="literal">false</span>     <span class="comment"># 隐藏歌词</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="版权信息"><a href="#版权信息" class="headerlink" title="版权信息"></a>版权信息</h3><p>可以在<code>source/_posts/xxx.md</code>文件中设置<code>copyright</code>true或者false，单独设置某个文章的版权信息是否显示，也可以在主题文件夹下的<code>_config.yml</code>文件中的<code>copyright</code>属性设置true或者false对所有文章的版权信息进行显示隐藏控制</p>
+<h3 id="文章置顶"><a href="#文章置顶" class="headerlink" title="文章置顶"></a>文章置顶</h3><p>可以在<code>source/_posts/xxx.md</code>文件中设置<code>top: true</code>，将该文章放在首页的文章置顶栏目中，可以在主题文件夹下的<code>_config.yml</code>文件中的<code>topArticle</code>属性设置true或者false控制首页的文章置顶栏目显示和隐藏。</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">---</span></span><br><span class="line"><span class="attr">title:</span> <span class="string">Hello</span> <span class="string">World</span></span><br><span class="line"><span class="attr">date:</span> <span class="number">2019-05-21 </span><span class="number">21</span><span class="string">:11</span></span><br><span class="line"><span class="attr">top:</span> <span class="literal">true</span></span><br><span class="line"><span class="meta">---</span></span><br><span class="line"><span class="string">我是文章内容</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="评论"><a href="#评论" class="headerlink" title="评论"></a>评论</h3><p>主题中内置了<code>valine</code>, <code>miniValine</code>, <code>livere</code>, <code>gitment</code>, <code>gitalk</code>, <code>changyan</code>评论<br>通过主题文件夹下的<code>_config.yml</code>文件中的相应属性进行设置<br>推荐使用<code>valine</code>和<code>livere</code><br>这里重点说一下<code>valine</code>评论配置</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">valine:</span></span><br><span class="line">  <span class="attr">on:</span> <span class="literal">true</span> <span class="comment"># 是否启用</span></span><br><span class="line">  <span class="attr">appid:</span> <span class="comment"># 你的appid --&gt; https://valine.js.org/quickstart.html，请阅读这个获取appid和appkey</span></span><br><span class="line">  <span class="attr">appkey:</span> <span class="comment"># 你的key</span></span><br><span class="line">  <span class="attr">avatar:</span> <span class="string">&#x27;&#x27;</span> <span class="comment"># 匿名者头像选项 https://valine.js.org/avatar.html 访客的头像,最好启用下面的`requiredFields`中的邮箱必填，填写qq邮箱，头像会变成qq头像</span></span><br><span class="line">  <span class="attr">placeholder:</span> <span class="string">&#x27;客官，说点什么吧&#x27;</span> <span class="comment"># 评论内容输入框的 placeholder</span></span><br><span class="line">  <span class="attr">master:</span> <span class="string">&#x27;xxxxxx&#x27;</span> <span class="comment"># 博主标签识别，博主邮箱md5 可以去md5加密网站，例如 https://md5jiami.51240.com/ ，将自己的邮箱输入， 得到 32位小写 的字符串填入这里</span></span><br><span class="line">  <span class="attr">friends:</span> [<span class="string">&#x27;xxxxxxx&#x27;</span>, <span class="string">&#x27;xxxxxx&#x27;</span>] <span class="comment"># 小伙伴的 邮箱md5， 是个数组</span></span><br><span class="line">  <span class="attr">requiredFields:</span> [<span class="string">&#x27;nick&#x27;</span>, <span class="string">&#x27;mail&#x27;</span>] <span class="comment"># 设置必填项 [&#x27;nick&#x27;, &#x27;mail&#x27;] nick为昵称必填， mail为邮箱必填, 空数组，则不校验</span></span><br><span class="line">  <span class="attr">backgroundImg:</span> <span class="string">&#x27;/medias/comment-bg.gif&#x27;</span> <span class="comment"># 右下角背景图片, or http://xxx.gif</span></span><br><span class="line">  <span class="attr">backgroundColor:</span> <span class="string">&#x27;rgba(255,255,255,0.9)&#x27;</span> <span class="comment"># 背景颜色, 0.9标是透明度</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="鼠标手势"><a href="#鼠标手势" class="headerlink" title="鼠标手势"></a>鼠标手势</h3><p>设置主题文件夹下的<code>_config.yml</code>文件中的<code>cursor</code>属性，可自行替换链接，参数如下:</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 鼠标手势</span></span><br><span class="line"><span class="attr">cursor:</span></span><br><span class="line">  <span class="attr">pointer:</span> <span class="string">https://cdn.jsdelivr.net/gh/inkss/common@master/cursor/pointer.png</span></span><br><span class="line">  <span class="attr">default:</span> <span class="string">https://cdn.jsdelivr.net/gh/inkss/common@master/cursor/left_ptr.png</span></span><br><span class="line">  <span class="attr">text:</span> <span class="string">https://cdn.jsdelivr.net/gh/inkss/common@master/cursor/text.png</span></span><br><span class="line">  <span class="attr">zoom-in:</span> <span class="string">https://cdn.jsdelivr.net/gh/inkss/common@master/cursor/zoom-in.png</span></span><br><span class="line">  <span class="attr">zoom-out:</span> <span class="string">https://cdn.jsdelivr.net/gh/inkss/common@master/cursor/zoom-out.png</span></span><br></pre></td></tr></table></figure>
+<h3 id="字数统计"><a href="#字数统计" class="headerlink" title="字数统计"></a>字数统计</h3><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># wordcount字数统计, 需要 npm i hexo-wordcount 安装</span></span><br><span class="line"><span class="attr">wordcount:</span></span><br><span class="line">  <span class="attr">on:</span> <span class="literal">true</span></span><br></pre></td></tr></table></figure>
+<h3 id="天气"><a href="#天气" class="headerlink" title="天气"></a>天气</h3><p>设置主题文件夹_config.yml的<code>weather</code>属性true或者false，控制显示和隐藏</p>
+<h3 id="背影彩带"><a href="#背影彩带" class="headerlink" title="背影彩带"></a>背影彩带</h3><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 背影彩带</span></span><br><span class="line"><span class="attr">ribbon:</span></span><br><span class="line">  <span class="attr">on:</span> <span class="literal">false</span></span><br></pre></td></tr></table></figure>
+<h3 id="背景图预加载图片"><a href="#背景图预加载图片" class="headerlink" title="背景图预加载图片"></a>背景图预加载图片</h3><p>设置主题文件夹下的<code>_config.yml</code>文件中的<code>loadingImg</code>属性，可自行修改预加载图片链接</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># loading图片地址，为空则不使用loading图片，文章详情页的loading图片可从`postLoadingImg`参数控制</span></span><br><span class="line"><span class="attr">loadingImg:</span> <span class="string">&#x27;https://img10.360buyimg.com/ddimg/jfs/t1/159345/8/2271/222193/5ff7b36fEe49f5663/a95287c20385127f.gif&#x27;</span></span><br><span class="line"><span class="comment"># 文章详情页的loading图片地址，为空则不使用loading图片</span></span><br><span class="line"><span class="attr">postLoadingImg:</span> <span class="string">&#x27;https://img10.360buyimg.com/ddimg/jfs/t1/157667/29/9156/134350/603c6445Ebbc9cabe/41219c5d36d45072.gif&#x27;</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="关灯"><a href="#关灯" class="headerlink" title="关灯"></a>关灯</h3><p>设置主题文件夹下的<code>_config.yml</code>文件中的<code>dark</code>属性，控制头部导航的开关灯按钮是否显示，控制是否默认显示关灯, 具体如下</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 黑夜模式, 关灯</span></span><br><span class="line"><span class="attr">dark:</span></span><br><span class="line">  <span class="attr">on:</span> <span class="literal">true</span> <span class="comment"># 是否在头部导航上显示开关灯</span></span><br><span class="line">  <span class="attr">default:</span> <span class="literal">false</span>  <span class="comment"># true为默认关灯状态（刷新页面和跳转页面都是关灯状态），false为默认开灯状态(网页第一次打开的时候为开灯状态)</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="弹幕"><a href="#弹幕" class="headerlink" title="弹幕"></a>弹幕</h3><p>显示当前也免得弹幕</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 弹幕 只对valine评论有效，需要开启valine评论</span></span><br><span class="line"><span class="attr">danmu:</span></span><br><span class="line">  <span class="attr">on:</span> <span class="literal">true</span></span><br><span class="line">  <span class="attr">loop:</span> <span class="literal">false</span> <span class="comment"># 设为true，则弹幕完了之后，继续查询评论接口，将该篇文章的评论再显示在弹幕里</span></span><br><span class="line">  <span class="attr">delay:</span> <span class="number">5000</span> <span class="comment"># 每条弹幕之间出现的间隔时间</span></span><br><span class="line">  <span class="attr">speed:</span> <span class="number">20</span> <span class="comment"># 弹幕运行的速度, 越小越快</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="灯笼"><a href="#灯笼" class="headerlink" title="灯笼"></a>灯笼</h3><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">lantern:</span></span><br><span class="line">  <span class="attr">on:</span> <span class="literal">true</span></span><br><span class="line">  <span class="attr">left:</span> <span class="string">&#x27;春&#x27;</span> <span class="comment"># 左边灯笼的文字， 空字符串则没有文字</span></span><br><span class="line">  <span class="attr">right:</span> <span class="string">&#x27;节&#x27;</span> <span class="comment"># 右边灯笼的文字</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="文章标题打字特效"><a href="#文章标题打字特效" class="headerlink" title="文章标题打字特效"></a>文章标题打字特效</h3><p>文章详情页上的标题打字效果</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 文章详情页图片上的标题打字效果</span></span><br><span class="line"><span class="attr">typed:</span></span><br><span class="line">  <span class="attr">on:</span> <span class="literal">true</span></span><br><span class="line">  <span class="attr">loop:</span> <span class="literal">false</span> <span class="comment"># 是否循环</span></span><br><span class="line">  <span class="attr">showCursor:</span> <span class="literal">false</span> <span class="comment"># 是否显示光标</span></span><br><span class="line">  <span class="attr">startDelay:</span> <span class="number">100</span> <span class="comment"># 开始延迟</span></span><br><span class="line">  <span class="attr">typeSpeed:</span> <span class="number">100</span> <span class="comment"># 打字速度</span></span><br><span class="line">  <span class="attr">backSpeed:</span> <span class="number">50</span> <span class="comment"># 删除速度</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="文章头部气泡显示"><a href="#文章头部气泡显示" class="headerlink" title="文章头部气泡显示"></a>文章头部气泡显示</h3><p>文章详情页头部气泡效果</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 文章详情页图片上的气泡效果</span></span><br><span class="line"><span class="attr">bubble:</span></span><br><span class="line">  <span class="attr">on:</span> <span class="literal">true</span></span><br></pre></td></tr></table></figure>
+<h3 id="首页文章图片显示位置"><a href="#首页文章图片显示位置" class="headerlink" title="首页文章图片显示位置"></a>首页文章图片显示位置</h3><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 首页文章图片是否一左一右交错显示</span></span><br><span class="line"><span class="attr">homePostImgsPosition:</span></span><br><span class="line">  <span class="attr">on:</span> <span class="literal">true</span></span><br><span class="line">  <span class="attr">left:</span> <span class="literal">true</span> <span class="comment"># 当上面的on设置为false（不交叉显示），则指定left为true的时候，图片在左边显示</span></span><br><span class="line">  </span><br></pre></td></tr></table></figure>
+      </div>
+      <div class="post-tags-categories">
+        
+        <div class="tags">
+          
+            <a href="/tags/Hexo/" class="">
+              Hexo
+            </a>
+          
+            <a href="/tags/hexo-theme-bamboo/" class="">
+              hexo-theme-bamboo
+            </a>
+          
+        </div>
+        
+      </div>
+      
+        <div class="copyright">
+  <ul class="post-copyright">
+    <li class="post-copyright-author">
+    <strong>作者:  </strong>YuAng</a>
+    </li>
+    <li class="post-copyright-link">
+    <strong>文章链接:  </strong>
+    <a href="/2021/07/05/hexo-theme-bamboo/v2.3.0-page/" target="_blank" title="Bamboo主题-页面功能配置（二）">http://yuang01.github.io/2021/07/05/hexo-theme-bamboo/v2.3.0-page/</a>
+    </li>
+    <li class="post-copyright-license">
+      <strong>版权声明:   </strong>
+      本网站所有文章除特别声明外,均采用 <a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank" title="Attribution-NonCommercial-NoDerivatives 4.0 International (CC BY-NC-ND 4.0)">CC BY-NC-ND 4.0</a>
+      许可协议。转载请注明出处!
+    </li>
+  </ul>
+<div>
+      
+    </article>
+    <!-- 上一篇文章和下一篇文章 -->
+    
+      <!-- 文章详情页的上一页和下一页 -->
+<div class="post-nav">
+
+
+
+  
+  <div class="post-nav-prev post-nav-item">
+    <div class="post-nav-img lazyload" data-original="https://img10.360buyimg.com/ddimg/jfs/t1/180344/4/14703/246455/60f3ac57E43fdf363/412adfa574c34196.jpg" style="background-size: cover; 
+      background-position: center center;">
+    </div>
+    <a href="/2021/07/05/hexo-theme-bamboo-new/" class="post-nav-link">
+      <div class="title">
+        <i class="fa fa-angle-left"></i> 上一篇:
+        <div class="title-text">Bamboo主题-基本配置（一）</div>
+      </div>
+      
+      <!-- <div class="content">
+        这是一款既可以还算凑合的主题。
+下载
+首先你需要有一个Hexo，按照官网的方法，很容易的就能创建一个hexo博客。
+He
+      </div> -->
+    </a>
+  </div>
+
+
+
+  
+  <div class="post-nav-next post-nav-item">
+    <div class="post-nav-img lazyload" data-original="https://w.wallhaven.cc/full/48/wallhaven-48yppo.jpg" style="background-size: cover; 
+      background-position: center center;">
+    </div>
+    <a href="/2021/07/05/hexo-theme-bamboo/v2.3.0-theme/" class="post-nav-link">
+      <div class="title">
+        下一篇: <i class="fa fa-angle-right"></i>
+        <div class="title-text">Bamboo主题-主题更改（三）</div>
+      </div>
+      <!-- <div class="content">
+        主题更改
+归档、标签、分类、关于我、友情链接页面图片自定义通过主题文件夹下的_config.yml文件中的相应属性进行设
+      </div> -->
+    </a>
+  </div>
+
+</div>
+
+    
+    
+
+    <!-- 打赏 -->
+    
+      <div id="appDonate" class="post-donate">
+  <div id="donate_board" class="donate_bar center" ref="donate">
+    <a id="btn_donate" class="btn_donate" href="javascript:;" title="打赏" @click="showDialogDrawer()"></a>
+  </div>
+  <transition name="fade">
+    <div 
+      class="donate-box-mask"
+      v-cloak 
+      v-if="visible"
+      @click="cancelDialogDrawer()"
+    >
+    </div>
+  </transition>
+  <transition name="bounce">
+    <div class="donate-box" v-cloak v-if="visible">
+      <div class="donate-box_close">
+        <i class="fa fa-times" aria-hidden="true" @click="cancelDialogDrawer" pointer></i>
+      </div>
+      <div class="donate-box_title">
+        <h4>
+          你的赏识是我前进的动力
+        </h4>
+      </div>
+      <div class="donate-box_tab">
+        <div class="Alipay" pointer :class="{'active': tabActive === 'Alipay'}" @click="changeTabActive('Alipay')">
+          支付宝
+        </div>
+        <div class="WeChatpay" pointer :class="{'active': tabActive === 'WeChatpay'}" @click="changeTabActive('WeChatpay')">
+          微信
+        </div>
+      </div>
+      <div class="donate-box_img">
+        <div class="AlipayImg" v-if="tabActive === 'Alipay'">
+          <img src="/medias/zfb.jpg" alt="支付宝打赏" />
+        </div> 
+        <div class="WeChatpayImg" v-if="tabActive === 'WeChatpay'">
+          <img src="/medias/wx.jpg" alt="微信打赏" />
+        </div>
+      </div>
+    </div>
+  </transition>
+</div>
+
+<script>
+  var body = document.body || document.documentElement || window;
+  var vm = new Vue({
+    el: '#appDonate',
+    data: {
+      visible: false,
+      tabActive: 'Alipay',
+      top: 0,
+    },
+    computed: {
+    },
+    mounted() {
+    },
+    methods: {
+      showDialogDrawer() {
+        this.visible = true;
+        // 防止页面滚动，只能让弹框滚动
+        // function getScroll() {
+        //   return {
+        //     left: window.pageXOffset || document.documentElement.scrollLeft || document.body.scrollLeft || 0,
+        //     top: window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0
+        //   };
+        // }
+        this.top = $(document).scrollTop() // or getScroll().top
+        // console.log('aa', $('.main-content'));
+        body.style.cssText = 'overflow: hidden;';
+      },
+      cancelDialogDrawer() {
+        this.visible = false;
+        body.removeAttribute('style');
+        $(document).scrollTop(this.top)
+      },
+      changeTabActive(name) {
+        this.tabActive = name;
+      }
+    },
+    created() {}
+  })
+</script>
+    
+
+    <!-- 分享 -->
+    
+      <!-- https://github.com/overtrue/share.js -->
+<!-- 文章详情页的分享 -->
+<div class="social-share" data-sites="twitter,facebook,google,qq,qzone,wechat,weibo,douban,linkedin" data-wechat-qrcode-helper="<p>微信扫一扫即可分享！</p>"></div>
+
+<script src="/js/shareJs/social-share.min.js"></script>
+</script>
+
+<style>
+  .social-share {
+    margin: 20px 0;
+  }
+</style>
+
+
+    
+    
+    <!-- 评论 -->
+    <!-- 评论 -->
+
+  <div id="myComment">
+    
+      
+<section id="comments" style="padding: 1em; margin: 15px auto;"
+	class="animated bounceInUp">
+	<div id="vcomment" class="comment"></div>
+</section>
+<style>
+	#comments {
+		background: rgba(255,255,255,0.9);
+	}
+	#veditor {
+		background-image: url('https://img.zcool.cn/community/01a253594c71cfa8012193a329a77f.gif');
+		background-size: contain;
+		background-repeat: no-repeat;
+		background-position: right;
+		background-color: rgba(255, 255, 255, 0);
+		resize: vertical;
+	}
+	#veditor:focus{
+		background-position-y: 200px;
+		transition: all 0.2s ease-in-out 0s;
+	}
+	#vcomment .vcards .vcard .vh .vhead .vtag.vvisitor {
+		background-color: #42b983;
+	}
+	.v[data-class=v] .vbtn:active, .v[data-class=v] .vbtn:hover {
+		color: #42b983;
+		border-color: #42b983;
+	}
+	#vcomment .vcards .vcard .vhead .vsys i {
+		display: none;
+	}
+	/* 底部valine链接 */
+	#vcomment .vpower {
+		display: none;
+	}
+	
+	/* 底下注释是修改 名称和邮箱和网址输入框的样式 */
+	/* #vcomment .vheader {
+		display: flex;
+		justify-content: space-around;
+	}
+	
+	#vcomment .vheader .vnick {
+		width: 31%;
+		border: 2px solid #dedede;
+		padding-left: 10px;
+		padding-right: 10px;
+		border-radius: 5px
+	}
+
+	#vcomment .vheader .vmail {
+		width: 31%;
+		border: 2px solid #dedede;
+		padding-left: 10px;
+		padding-right: 10px;
+		border-radius: 5px
+	}
+
+	#vcomment .vheader .vlink {
+		width: 31%;
+		border: 2px solid #dedede;
+		padding-left: 10px;
+		padding-right: 10px;
+		border-radius: 5px
+	} */
+
+	img.vimg {
+		transition: all 1s;
+		/* 头像旋转时间为 1s */
+	}
+
+	img.vimg:hover {
+		transform: rotate(360deg);
+		-webkit-transform: rotate(360deg);
+		-moz-transform: rotate(360deg);
+		-o-transform: rotate(360deg);
+		-ms-transform: rotate(360deg);
+	}
+
+	#vcomment .vcards .vcard {
+		padding: 15px 20px 0 20px;
+		border-radius: 10px;
+		margin-bottom: 15px;
+		box-shadow: 0 0 4px 1px rgba(0, 0, 0, .12);
+		transition: all .3s
+	}
+
+	#vcomment .vcards .vcard:hover {
+		box-shadow: 0 0 8px 3px rgba(0, 0, 0, .12)
+	}
+
+	#vcomment .vcards .vcard .vh .vcard {
+		border: none;
+		box-shadow: none;
+	}
+</style>
+    
+  </div>
+
+<!-- comment script in themes\hexo-theme-bamboo\layout\_partial\scripts\index.ejs -->
+
+
+  </div>
+
+  <!-- 目录 -->
+  <!-- 文章详情页右侧目录 -->
+
+  <div class="toc-aside">
+    <div class="toc-main">
+      <div class="toc-aside-title">
+        <i class="fa fa-list-ul" aria-hidden="true"></i><span>本文目录</span>
+        
+          <div class="toc-open-close">本文目录</div>
+        
+      </div>
+      <div class="toc-content">
+        <div class="toc"></div>
+      </div>
+    </div>
+  </div>
+  <!-- js在scripts目录下的的toc.ejs里面 -->
+  
+
+  <script>
+    function openBtnClickFn () {
+      let openOrCloseBtn = $('.toc-aside .toc-aside-title .toc-open-close');
+      let open = eval('' || 'true');
+      openOrCloseBtn.click(function() {
+        if (open === true) {
+          $(".toc-aside").css({'width': 0, 'padding': 0});
+          $(".toc-content").css({'width': 0});
+          $(".toc-aside-title span, .toc-aside-title i").css({'display': 'none'});
+          $(".main-content").css({'width': '75%', 'margin': '10px auto'});
+          open = false;
+        } else {
+          $(".toc-aside").css({'width': '300px', 'padding': '0 10px'});
+          $(".toc-content").css({'width': '300px'});
+          $(".toc-aside-title span, .toc-aside-title i").css({'display': 'inline-block'});
+          $(".main-content").css({'width': '65%', 'margin-right': '10px', 'margin-left': 'calc(35% - 350px)'});
+          open = true;
+        }
+      });
+    };
+    openBtnClickFn();
+    document.addEventListener('pjax:complete', function () {
+      openBtnClickFn();
+    })
+  </script>
+
+
+  
+
+  <!-- 图片放大 Wrap images with fancybox support -->
+  <script src="/js/wrapImage.js"></script>
+</div>
+
+<!-- 文章详情页背景图 -->
+<div id="appBgSwiper" style="position: fixed;left: 0;top: 0;width: 100%;height: 100%;z-index: -2;" :style="{'background-color': bgColor ? bgColor : 'transparent'}">
+    <transition-group tag="ul" :name="names">
+        <li v-for='(image,index) in img' :key='index' v-show="index === mark" class="bg-swiper-box">
+            <img :src="image" class="bg-swiper-img">
+        </li>
+    </transition-group>
+</div>
+<script>
+    var vm = new Vue({
+        el: '#appBgSwiper',
+        data: {
+            names: '' || 'fade' || 'fade', // translate-fade fade
+            mark: 0,
+            img: [],
+            bgColor: '',
+            time: null
+        },
+        methods: {   //添加方法
+            change(i, m) {
+                if (i > m) {
+                    // this.names = 'fade';
+                } else if (i < m) {
+                    // this.names = 'fade';
+                } else {
+                    return;
+                }
+                this.mark = i;
+            },
+            prev() {
+                // this.names = 'fade';
+                this.mark--;
+                if (this.mark === -1) {
+                    this.mark = 3;
+                    return
+                }
+            },
+            next() {
+                // this.names = 'fade';
+                this.mark++;
+                if (this.mark === this.img.length) {
+                    this.mark = 0;
+                    return
+                }
+            },
+            autoPlay() {
+                // this.names = 'fade';
+                this.mark++;
+                if (this.mark === this.img.length) {
+                    this.mark = 0;
+                    return
+                }
+            },
+            play() {
+                let bgImgDelay = '' || '180000'
+                let delay = parseInt(bgImgDelay) || 180000;
+                this.time = setInterval(this.autoPlay, delay);
+            },
+            enter() {
+                clearInterval(this.time);
+            },
+            leave() {
+                this.play();
+            }
+        },
+        created() {
+            this.play()
+        },
+        beforeDestroy() {
+            clearInterval(this.time);
+        },
+        mounted() {
+            let prop = ''|| '';
+            let isImg = prop.includes('.bmp') || prop.includes('.jpg') || prop.includes('.png') || prop.includes('.tif') || prop.includes('.gif') || prop.includes('.pcx') || prop.includes('.tga') || prop.includes('.exif') || prop.includes('.fpx') || prop.includes('.psd') || prop.includes('.cdr') || prop.includes('.pcd') || prop.includes('.dxf') || prop.includes('.ufo') || prop.includes('.eps') || prop.includes('.ai') || prop.includes('.raw') || prop.includes('.WMF') || prop.includes('.webp') || prop.includes('.jpeg') || prop.includes('http://') || prop.includes('https://') 
+            if (isImg) {
+                let img = prop.split(',');
+                let configRoot = '/'
+                let arrImg = [];
+                img.forEach(el => {
+                    var Expression=/http(s)?:\/\/([\w-]+\.)+[\w-]+(\/[\w- .\/?%&=]*)?/;
+			        var objExp = new RegExp(Expression);
+
+                    if(objExp.test(el)) {
+                        // http or https
+                        arrImg.push(el);
+                    } else {
+                        // 非http or https开头
+                        // 本地文件
+                        let firstStr = el.charAt(0);
+                        if (firstStr == '/') {
+                            el = el.substr(1); // 删除第一个字符 '/',因为 configRoot最后一个字符为 /
+                        }
+                        el = configRoot + el;
+                        arrImg.push(el);
+                    }
+                })
+                this.img = arrImg;
+            } else {
+                this.bgColor = prop;
+            }
+        }
+    })
+</script>
+
+<style>
+    .bg-swiper-box {
+        position: absolute;
+        display: block;
+        width: 100%;
+        height: 100%;
+    }
+    .bg-swiper-img {
+        object-fit: cover;
+        width: 100%;
+        height: 100%;
+    }
+</style>
+
+      </main>
+    </div>
+
+    <!-- 页脚 -->
+    <div class="footer bg-color">
+  <div class="footer-main">
+    <div class="link">
+      
+    </div>
+    <div class="footer-copyright">
+      <p>Copyright © 2019 - 2020 <a target="_blank" rel="noopener" href="https://github.com/yuang01">yuang01</a> | Powered by <a target="_blank" rel="noopener" href="https://hexo.io/zh-cn/docs/">Hexo</a> | Theme <a target="_blank" rel="noopener" href="https://github.com/yuang01/theme">Bamboo</a> </p>
+
+    </div>
+    <div class="footer-custom">
+      
+    </div>
+    <!-- 不蒜子统计 -->
+    
+      
+  <!-- 不蒜子统计 -->
+  <span id="busuanzi_container_site_pv">
+        <i class="fa fa-eye" aria-hidden="true"></i>本站总访问量：<span id="busuanzi_value_site_pv"></span> 次
+  </span>
+  <span class="post-meta-divider">|</span>
+  <span id="busuanzi_container_site_uv" style='display:none'>
+        <i class="fa fa-users" aria-hidden="true"></i>本站访客数：<span id="busuanzi_value_site_uv"></span> 人
+  </span>
+  <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" data-pjax></script>
+
+    
+  </div>
+</div>
+
+
+    <!-- 渲染暗黑按钮 -->
+    
+      <div class="dark">
+  <div class="dark-content">
+    <i class="fa fa-moon-o" aria-hidden="true"></i>
+    <!-- <span>关灯</span> -->
+  </div>
+  
+</div>
+
+<script>
+  $(function() {
+    let isDark = JSON.parse(localStorage.getItem('dark'))  || JSON.parse('false');
+    if (isDark) {
+      $(".dark-content").replaceWith(
+          `
+          <div class='dark-content'>
+            <i class="fa fa-lightbulb-o" aria-hidden="true"></i>
+          </div>
+          `
+        );
+    }
+    $('.dark').click(function() {
+      if ($(document.body).is('.darkModel')) {
+        $(document.body).removeClass('darkModel');
+        localStorage.setItem('dark', false);
+        $(".dark-content").replaceWith(
+          `
+          <div class='dark-content'>
+            <i class="fa fa-moon-o" aria-hidden="true"></i>
+          </div>
+          `
+        );
+      } else {
+        $(document.body).addClass('darkModel');
+        localStorage.setItem('dark', true);
+        $(".dark-content").replaceWith(
+          `
+          <div class='dark-content'>
+            <i class="fa fa-lightbulb-o" aria-hidden="true"></i>
+          </div>
+          `
+        );
+      }
+    })
+  })
+</script>
+    
+    <!-- 渲染回到顶部按钮 -->
+    
+      <div class="goTop top-btn-color" pointer>
+  <i class="fa fa-arrow-up" aria-hidden="true"></i>
+</div>
+<script src="/js/goTop.js"></script>
+    
+    <!-- 渲染左下角音乐播放器 -->
+    
+      <link rel="stylesheet" href="/js/aplayer/APlayer@1.10.1.min.css">
+<style>
+.aplayer .aplayer-lrc p {
+  
+  font-size: 12px;
+  font-weight: 700;
+  line-height: 16px !important;
+}
+
+.aplayer .aplayer-lrc p.aplayer-lrc-current {
+  
+  font-size: 15px;
+  color: #42b983;
+}
+
+
+.aplayer.aplayer-fixed.aplayer-narrow .aplayer-body {
+  left: -66px !important;
+}
+
+.aplayer.aplayer-fixed.aplayer-narrow .aplayer-body:hover {
+  left: 0px !important;
+}
+
+
+</style>
+<meting-js  
+  class=""
+  server="netease"
+  type="song"
+  id="1808078153"
+  fixed='true'
+  autoplay='false'
+  theme='#42b983'
+  loop='all'
+  order='random'
+  preload='auto'
+  volume='0.7'
+  list-folded='true'
+>
+</meting-js>
+
+<!-- <style>
+  #aplayer {
+    position: fixed;
+    left: 0;
+    bottom: 300px;
+  }
+</style> -->
+<script src="https://cdn.jsdelivr.net/npm/aplayer@1.10.1/dist/APlayer.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/meting@2/dist/Meting.min.js"></script>
+    
+
+    <!-- 图片放大 -->
+    
+      <script src="/js/fancybox/jquery.fancybox.min.js"></script>
+    
+
+    <!-- 百度解析 -->
+    <!-- Baidu Analytics -->
+
+    <!-- Baidu Push -->
+
+<script>
+    (function () {
+        var bp = document.createElement('script');
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https') {
+            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        } else {
+            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(bp, s);
+    })();
+</script>
+
+    
+    <!-- 背景彩带 -->
+    
+      <script type="text/javascript" size="100" alpha='0.4' zIndex="-1" src="/js/ribbon.min.js"></script>
+    
+    
+    <script src="/js/app.js" data-pjax></script>
+    
+    <!-- 文章目录所需js -->
+<link href="/js/tocbot/tocbot.css" rel="stylesheet">
+<script src="/js/tocbot/tocbot.min.js"></script>
+
+<script>
+  var headerEl = 'h2, h3, h4',  //headers 
+      content = '.post-detail',//文章容器
+      idArr = {};  //标题数组以确定是否增加索引id
+      //add #id
+  var option = {
+    // Where to render the table of contents.
+    tocSelector: '.toc',
+    // Where to grab the headings to build the table of contents.
+    contentSelector: content,
+    // Which headings to grab inside of the contentSelector element.
+    headingSelector: headerEl,
+    scrollSmooth: true,
+    scrollSmoothOffset: -80,
+    headingsOffset: -($(window).height() * 0.4 - 45),
+    positionFixedSelector: '.toc-main',
+    positionFixedClass: 'is-position-fixed',
+    fixedSidebarOffset: 'auto',
+  }
+  if ($('.toc').length > 0) {
+
+    $(content).children(headerEl).each(function () {
+      //去除空格以及多余标点
+      var headerId = $(this).text().replace(/[\s|\~|`|\!|\@|\#|\$|\%|\^|\&|\*|\(|\)|\_|\+|\=|\||\|\[|\]|\{|\}|\;|\:|\"|\'|\,|\<|\.|\>|\/|\?|\：|\，|\。]/g, '');
+
+      headerId = headerId.toLowerCase();
+      if (idArr[headerId]) {
+        //id已经存在
+        $(this).attr('id', headerId + '-' + idArr[headerId]);
+        idArr[headerId]++;
+      }
+      else {
+        //id未存在
+        idArr[headerId] = 1;
+        $(this).attr('id', headerId);
+      }
+    });
+
+    tocbot.init(option);
+    
+  }
+
+
+  document.addEventListener('pjax:send', function () {
+    if ($('.toc').length) {
+      tocbot.destroy();
+    }
+  });
+
+  document.addEventListener('pjax:complete', function () {
+    if ($('.toc').length) {
+      tocbot.init(option);
+    }
+  });
+
+  
+</script>
+
+<style>
+.is-position-fixed {
+  position:sticky !important;
+  top: 74px;
+}
+.toc-main ul {
+  counter-reset: show-list;
+}
+.toc-main ul li::before {
+  content: counter(item)".";
+  display: block;
+  position: absolute;
+  left: 12px;
+  top:0;
+}
+/* .toc > .toc-list {
+  padding-left: 35px;
+}
+.toc>.toc-list li {
+  list-style: decimal;
+}
+.toc-list {
+  padding-left: 25px;
+} */
+</style> 
+
+<!-- 渲染issues标签里的内容 -->
+<script>
+  function loadIssuesJS() {
+    if ($(".post-detail").find(".issues-api").length == 0) {
+      return;
+    } 
+    loadScript('/js/issues/index.js');
+  };
+  $(function () {
+    loadIssuesJS();
+  });
+  document.addEventListener('pjax:complete', function () {
+    if (typeof IssuesAPI == "undefined") {
+      loadIssuesJS();
+    }
+  })
+</script>
+
+<!-- div滚动到显示区域的动画 -->
+
+
+<!-- 输入框打字特效 -->
+<!-- 输入框打字特效 -->
+
+  <script src="/js/activate-power-mode.js"></script>
+  <script>
+    POWERMODE.colorful = true;  // 打开随机颜色特效
+    POWERMODE.shake = false;    // 关闭输入框抖动
+    document.body.addEventListener('input', POWERMODE);//监听打字事件
+  </script>
+
+
+<!-- markdown代码一键复制功能 -->
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/v-plugs-ayu/lib/ayu.css">
+  <script src="https://cdn.jsdelivr.net/npm/v-plugs-ayu/lib/ayu.umd.min.js"></script>
+  <script src="/js/clipboard/clipboard.min.js"></script>
+  <div id="appCopy">
+  </div>
+  <script data-pjax>
+    var vm = new Vue({
+      el: '#appCopy',
+      data: {
+      },
+      computed: {
+      },
+      mounted() {
+        const that = this;
+        var copy = '复制';
+        /* code */
+        var initCopyCode = function () {
+          var copyHtml = '';
+          copyHtml += '<button class="btn-copy" data-clipboard-snippet="" style="position:absolute;top:0;right:0;z-index:1;">';
+          copyHtml += '<i class="fa fa-copy"></i><span>' + copy + '</span>';
+          copyHtml += '</button>';
+          $(".post-detail pre").not('.gutter pre').wrap("<div class='codeBox' style='position:relative;width:100%;'></div>")
+          $(".post-detail pre").not('.gutter pre').before(copyHtml);
+          new ClipboardJS('.btn-copy', {
+            target: function (trigger) {
+              return trigger.nextElementSibling;
+            }
+          });
+        }
+        initCopyCode();
+        $('.btn-copy').unbind('click').bind('click', function () {
+          doSomething();
+        })
+        $(document).unbind('keypress').bind('keypress', function (e) {
+          if (e.ctrlKey && e.keyCode == 67) {
+            doSomething();
+            // 返回false, 防止重复触发copy事件  
+            // return false;
+          }
+        })
+        //  监听 ctrl + c事件  
+        // $(document).unbind('keypress').bind('keypress', function (e) {
+        //   if (e.ctrlKey && e.keyCode == 67) {
+        //     doSomething();
+        //     // 返回false, 防止重复触发copy事件  
+        //     return false;
+        //   }
+        // })
+
+        // // 鼠标右键的复制事件  
+        // $(document).unbind('copy').bind('copy', function (e) {
+        //   doSomething();
+        // });
+
+        function doSomething() {
+          that.$notify({
+            title: "成功",
+            content: "代码已复制，请遵守相关授权协议。",
+            type: 'success'
+          })
+        }
+      },
+      methods: {
+      },
+      created() { }
+    })
+  </script>
+
+
+<!-- 图片懒加载 -->
+<script src="/js/lazyload/lazyload@1.9.1.js"></script>
+<script data-pjax>
+  $(function () {
+    $("div.lazyload, img.lazyload, a.lazyload").lazyload(
+      {
+        effect: "show",
+        placeholder: "https://img10.360buyimg.com/ddimg/jfs/t1/159345/8/2271/222193/5ff7b36fEe49f5663/a95287c20385127f.gif"    //图片未加载出来时显示的占位图
+      }
+    );
+  });
+</script>
+
+<!-- 卡片滚动动画 -->
+
+    <script type="text/javascript">
+  loadScript("https://cdn.jsdelivr.net/npm/scrollreveal@4.0.6/dist/scrollreveal.min.js")
+  function pjax_scrollrebeal() {
+    ScrollReveal().reveal('.reveal', {
+      distance: '120px',
+      duration: '400',
+      interval: '30',
+      scale: '1',
+      origin: 'bottom', // 动画开始的方向
+      easing: 'ease'
+    });
+  }
+  $(function () {
+    var checkScrollReveal = setInterval(function () {
+      console.log('aaaaaaa', $("#safearea").css("display") != "block");
+      if ($("#safearea").css("display") != "block") return
+      if (typeof ScrollReveal == "undefined") return
+      clearInterval(checkScrollReveal)
+      pjax_scrollrebeal();
+    }, 100)
+  });
+  document.addEventListener('pjax:complete', function () {
+    pjax_scrollrebeal();
+  })
+</script>
+   
+
+<!-- 评论所需js -->
+
+    
+        <!-- 弹幕所需的css和js -->
+        
+<!-- 具体js，请前往valine/script.ejs查看 -->
+
+        <script>
+  var requiredFields = '';
+  requiredFields = requiredFields.split(',');
+  comment_el = '.comment';
+  let looperValine = null;
+  load_valine = function () {
+    if ($(comment_el).length) {
+      var valine = new Valine({
+        el: '#vcomment',
+        path: window.location.pathname,
+        notify: false,
+        verify: false,
+        app_id: "",
+        app_key: "",
+        placeholder: "客官，说点什么吧",
+        avatar: "",
+        master: "",   //博主邮箱md5
+        tagMeta: ["博主","小伙伴","访客"],     //标识字段名
+        friends: "",
+        metaPlaceholder: { "nick": "昵称/QQ号", "mail": "邮箱" },
+        requiredFields: requiredFields,
+        enableQQ: true,
+      });
+      function debounce(fn) {
+        var timerID = null
+        return function () {
+          var arg = arguments[0]   //获取事件
+          if (timerID) {
+            clearTimeout(timerID)
+          }
+          timerID = setTimeout(function () {
+            fn(arg)              //事件传入函数
+          }, 200)
+        }
+      }
+      //查询评论 valine.Q('*').limit(7) -- 查询所有，限制7条, 下面的的代码是查询当前页面
+      var themeDanmu = eval('false');
+      var themeLoop = eval('false');
+      var themeLooperTime = '5000' || 5000;
+      var speed = '40' || 20;
+      var isBarrager = true;
+      if (themeDanmu == true) {
+        do_barrager();
+        if ($('.danmuBox').length <= 0) {
+          $('.navbar').append('<div class="danmuBox"><div class="danmuBtn open"><span class="danmuCircle"></span><span class="danmuText">弹幕</span></div></div>');
+        }
+        $('.danmuBtn').on('click', debounce(
+          function () {
+            if ($('.danmuBtn').hasClass('open')) {
+              $('.danmuBtn').removeClass('open')
+              clearInterval(looperValine);
+              $.fn.barrager.removeAll();
+            } else {
+              $('.danmuBtn').addClass("open");
+              do_barrager();
+            }
+          }
+        ))
+      }
+      function do_barrager() {
+        isBarrager && valine.Q(window.location.pathname).find().then(function (comments) {
+          // var num = 0; // 可以记录条数，循环调用的时候只取最新的评论放入弹幕中
+          var run_once = true;
+          var looper_time = themeLooperTime;
+          var total = comments.length;
+          // var looper = null;
+          var index = 0;
+          if (total > 0) {
+            barrager();
+          } else {
+            // 当评论数为0的时候，自动关闭弹幕
+            // $('.danmuBtn').removeClass('open');
+          }
+          function barrager() {
+            if (run_once) {
+              //如果是首次执行,则设置一个定时器,并且把首次执行置为false
+              looperValine = setInterval(barrager, looper_time);
+              run_once = false;
+            }
+            var content = comments[index]._serverData.comment;
+            var email = comments[index]._serverData.mail;
+            var link = comments[index]._serverData.link;
+            var newcontent = content.substring(0, 50).replace(/<[^>]+>/g, "");
+            //发布一个弹幕
+            const item = {
+              img: `https://q1.qlogo.cn/g?b=qq&nk=${email}&s=640`, //图片 
+              info: newcontent, //文字 
+              href: link, //链接 
+              close: true, //显示关闭按钮 
+              speed: speed, //延迟,单位秒,默认6 
+              color: '#fff', //颜色,默认白色 
+              old_ie_color: '#000000', //ie低版兼容色,不能与网页背景相同,默认黑色
+            }
+            $('body').barrager(item);
+            //索引自增
+            index++;
+            //所有弹幕发布完毕，清除计时器。
+            if (index == total) {
+              clearInterval(looperValine);
+              if (themeLoop === true) {
+                setTimeout(function () {
+                  do_barrager();
+                }, 5000);
+              } else {
+                $('.danmuBtn').removeClass('open');
+              }
+              return false;
+            }
+
+          }
+        })
+      }
+    }
+  };
+  $(document).ready(load_valine);
+  document.addEventListener('pjax:send', function (e) {
+    
+  })
+  document.addEventListener('pjax:complete', function () {
+    load_valine();
+  });
+</script>
+    
+
+
+<!-- 鼠标点击特效 -->
+<!-- 爱心点击 -->
+
+	
+		<canvas class="fireworks" style="position: fixed;left: 0;top: 0;z-index: 999; pointer-events: none;" ></canvas>
+		<script src="//cdn.bootcss.com/animejs/2.2.0/anime.min.js"></script>
+		<script src="/js/cursor/explosion.min.js"></script>
+	
+
+
+
+
+    <!-- pjax -->
+    
+
+<!-- pjax -->
+
+
+  <script src="/js/pjax@0.2.8/index.js"></script>
+  
+    <!-- 样式位于：source/css/_third-party/pjaxanimate.styl -->
+
+<div class="pjax-animate">
+  
+    <div class="loading-circle"><div id="loader-circle"></div></div>
+    <script>
+      window.ShowLoading = function() {
+        $(".loading-circle").css("display", "block");
+      };
+      window.HideLoading = function() {
+        $(".loading-circle").css("display", "none");
+      }
+    </script>
+  
+	<script>
+    document.addEventListener('pjax:complete', function () {
+      window.HideLoading();
+    })
+    document.addEventListener('pjax:send', function () {
+      window.ShowLoading();
+    })
+    document.addEventListener('pjax:error', function () {
+      window.HideLoading();
+    })
+	</script>
+</div>
+
+  
+
+  <script>
+    var pjax = new Pjax({
+      elements: 'a[href]:not([href^="#"]):not([href="javascript:void(0)"]):not([no-pjax])',   // 拦截正常带链接的 a 标签
+      selectors: ["#pjax-container","title"],                                   // 根据实际需要确认重载区域
+      cacheBust: false,   // url 地址追加时间戳，用以避免浏览器缓存
+      timeout: 5000
+    });
+
+    document.addEventListener('pjax:send', function (e) {
+
+      try {
+        var currentUrl = window.location.pathname;
+        var targetUrl = e.triggerElement.href;
+        var banUrl = [""];
+        if (banUrl[0] != "") {
+          banUrl.forEach(item => {
+            if(currentUrl.indexOf(item) != -1 || targetUrl.indexOf(item) != -1) {
+              window.location.href = targetUrl;
+            }
+          });
+        }
+      } catch (error) {}
+
+      $(window).unbind('resize');
+      $(window).unbind('scroll');
+      $(document).unbind('scroll');
+      $(document).unbind('click');
+      $('body').unbind('click');
+
+    })
+    
+    document.addEventListener('pjax:complete', function () {
+      $('script[data-pjax], .pjax-reload script').each(function () {
+        $(this).parent().append($(this).remove());
+      });
+    });
+
+    document.addEventListener('pjax:error', function (e) {
+      window.location.href = e.triggerElement.href;
+    })
+  </script>
+
+
+
+  </body>
+</html>
